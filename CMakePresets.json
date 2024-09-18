@@ -1,0 +1,25 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+      "major": 3,
+      "minor": 10
+    },
+    "configurePresets": [
+      {
+        "name": "clang",
+        "generator": "Unix Makefiles",
+        "binaryDir": "${sourceDir}/build",
+        "cacheVariables": {
+          "CMAKE_CXX_COMPILER": "clang++",
+          "CMAKE_BUILD_TYPE": "Debug"
+        }
+      }
+    ],
+    "buildPresets": [
+      {
+        "name": "default",
+        "configurePreset": "clang"
+      }
+    ]
+  }
+  
