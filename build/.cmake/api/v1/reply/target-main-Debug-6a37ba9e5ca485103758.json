@@ -77,13 +77,6 @@
 			]
 		}
 	],
-	"dependencies" : 
-	[
-		{
-			"backtrace" : 2,
-			"id" : "interp_table::@145eef247bfb46b6828c"
-		}
-	],
 	"id" : "main::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
@@ -99,7 +92,7 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "src/libinterp_table.a",
+				"fragment" : "-linterp_table",
 				"role" : "libraries"
 			}
 		],

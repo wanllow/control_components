@@ -3,7 +3,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "src/libinterp_table.a"
+			"path" : "src/libinterp_table1d.a"
 		}
 	],
 	"backtrace" : 1,
@@ -75,9 +75,9 @@
 			]
 		}
 	],
-	"id" : "interp_table::@145eef247bfb46b6828c",
-	"name" : "interp_table",
-	"nameOnDisk" : "libinterp_table.a",
+	"id" : "interp_table1d::@145eef247bfb46b6828c",
+	"name" : "interp_table1d",
+	"nameOnDisk" : "libinterp_table1d.a",
 	"paths" : 
 	{
 		"build" : "src",
@@ -98,7 +98,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/interp_table.cpp",
+			"path" : "src/interp_table1d.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

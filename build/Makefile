@@ -130,17 +130,17 @@ main/fast:
 .PHONY : main/fast
 
 #=============================================================================
-# Target rules for targets named interp_table
+# Target rules for targets named interp_table1d
 
 # Build rule for target.
-interp_table: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 interp_table
-.PHONY : interp_table
+interp_table1d: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 interp_table1d
+.PHONY : interp_table1d
 
 # fast build rule for target.
-interp_table/fast:
-	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/interp_table.dir/build.make src/CMakeFiles/interp_table.dir/build
-.PHONY : interp_table/fast
+interp_table1d/fast:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/interp_table1d.dir/build.make src/CMakeFiles/interp_table1d.dir/build
+.PHONY : interp_table1d/fast
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -174,7 +174,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... interp_table"
+	@echo "... interp_table1d"
 	@echo "... main"
 	@echo "... main.o"
 	@echo "... main.i"

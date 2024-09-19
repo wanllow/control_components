@@ -117,42 +117,42 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-src/CMakeFiles/interp_table.dir/rule:
-	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/interp_table.dir/rule
-.PHONY : src/CMakeFiles/interp_table.dir/rule
+src/CMakeFiles/interp_table1d.dir/rule:
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/interp_table1d.dir/rule
+.PHONY : src/CMakeFiles/interp_table1d.dir/rule
 
 # Convenience name for target.
-interp_table: src/CMakeFiles/interp_table.dir/rule
-.PHONY : interp_table
+interp_table1d: src/CMakeFiles/interp_table1d.dir/rule
+.PHONY : interp_table1d
 
 # fast build rule for target.
-interp_table/fast:
-	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/interp_table.dir/build.make src/CMakeFiles/interp_table.dir/build
-.PHONY : interp_table/fast
+interp_table1d/fast:
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/interp_table1d.dir/build.make src/CMakeFiles/interp_table1d.dir/build
+.PHONY : interp_table1d/fast
 
-interp_table.o: interp_table.cpp.o
-.PHONY : interp_table.o
+interp_table1d.o: interp_table1d.cpp.o
+.PHONY : interp_table1d.o
 
 # target to build an object file
-interp_table.cpp.o:
-	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/interp_table.dir/build.make src/CMakeFiles/interp_table.dir/interp_table.cpp.o
-.PHONY : interp_table.cpp.o
+interp_table1d.cpp.o:
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/interp_table1d.dir/build.make src/CMakeFiles/interp_table1d.dir/interp_table1d.cpp.o
+.PHONY : interp_table1d.cpp.o
 
-interp_table.i: interp_table.cpp.i
-.PHONY : interp_table.i
+interp_table1d.i: interp_table1d.cpp.i
+.PHONY : interp_table1d.i
 
 # target to preprocess a source file
-interp_table.cpp.i:
-	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/interp_table.dir/build.make src/CMakeFiles/interp_table.dir/interp_table.cpp.i
-.PHONY : interp_table.cpp.i
+interp_table1d.cpp.i:
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/interp_table1d.dir/build.make src/CMakeFiles/interp_table1d.dir/interp_table1d.cpp.i
+.PHONY : interp_table1d.cpp.i
 
-interp_table.s: interp_table.cpp.s
-.PHONY : interp_table.s
+interp_table1d.s: interp_table1d.cpp.s
+.PHONY : interp_table1d.s
 
 # target to generate assembly for a file
-interp_table.cpp.s:
-	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/interp_table.dir/build.make src/CMakeFiles/interp_table.dir/interp_table.cpp.s
-.PHONY : interp_table.cpp.s
+interp_table1d.cpp.s:
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/interp_table1d.dir/build.make src/CMakeFiles/interp_table1d.dir/interp_table1d.cpp.s
+.PHONY : interp_table1d.cpp.s
 
 # Help Target
 help:
@@ -162,10 +162,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... interp_table"
-	@echo "... interp_table.o"
-	@echo "... interp_table.i"
-	@echo "... interp_table.s"
+	@echo "... interp_table1d"
+	@echo "... interp_table1d.o"
+	@echo "... interp_table1d.i"
+	@echo "... interp_table1d.s"
 .PHONY : help
 
 
