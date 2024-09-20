@@ -4,7 +4,9 @@
 #include <cmath>
 #include <cstdint>
 #include <stdexcept>
+#include <algorithm>
 
+using std::vector;
 enum class SearchMethod
 {
     seq = 0,
@@ -26,28 +28,18 @@ enum class ExtrapMethod
     specify = 2
 };
 
+
 class InterpTable1D
 {
 public:
-    // Constructors for different table types
+    // Constructors and destructor
     InterpTable1D();
-    InterpTable1D(const std::vector<double>& prelookup_table, const std::vector<double>& table_value);
-    
-    // Template constructor for std::array
-    template <std::size_t N>
-    InterpTable1D(const std::array<double, N>& prelookup_table, const std::array<double, N>& table_value) {
-        prelookup_table_.assign(prelookup_table.begin(), prelookup_table.end());
-        table_value_.assign(table_value.begin(), table_value.end());
-        CheckTableSize();
-    }
-
-    // Constructor for traditional arrays
-    InterpTable1D(const double* prelookup_table, const double* table_value, uint32_t table_size);
-
+    InterpTable1D(const vector<double> &x_table, const vector<double> &y_table);
     ~InterpTable1D() = default;
 
-    // Set the table values after initialization
-    void SetValue(const std::vector<double>& prelookup_table, const std::vector<double>& table_value);
+    // Set and clear the table values
+    void SetValue(const vector<double> &x_table, const vector<double> &y_table);
+    void ClearValue();
 
     // Lookup table based on input, using current search, interp, and extrap methods
     double LookupTable(double input_value);
@@ -58,13 +50,15 @@ public:
     void SetExtrapMethod(ExtrapMethod method) { extrap_method_ = method; }
 
 private:
-    std::vector<double> prelookup_table_;
-    std::vector<double> table_value_;
+    vector<double> x_table_;
+    vector<double> y_table_;
 
     // Methods for checking and setting tables
+    std::size_t GetTableSize(const vector<double>& input_vector1, const vector<double>& input_vector2);
+    std::size_t GetTableSize();
     void CheckTableSize();
-    void SetPreTable(const std::vector<double>& prelookup_table);
-    void SetTable(const std::vector<double>& table_value);
+    void SetTableX(const vector<double> &x_table);
+    void SetTableY(const vector<double> &y_table);
 
     // Prelookup to find the index of the input value
     uint32_t PreLookup(double input_value);
@@ -79,4 +73,8 @@ private:
     SearchMethod search_method_ = SearchMethod::bin;
     InterpMethod interp_method_ = InterpMethod::linear;
     ExtrapMethod extrap_method_ = ExtrapMethod::clip;
+
+    // State of table: true for valie and false for invalid
+    bool table_state_ = false;
+    const uint32_t max_table_size_ = 4294967295U;
 };
