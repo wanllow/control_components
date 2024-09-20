@@ -61,10 +61,10 @@ private:
     void SetTableY(const vector<double> &y_table);
 
     // Prelookup to find the index of the input value
-    uint32_t PreLookup(double input_value);
+    std::size_t PreLookup(double input_value);
 
     // Interpolation between the two closest points
-    double Interpolation(uint32_t prelookup_index, double input_value);
+    double Interpolation(std::size_t prelookup_index, double input_value);
 
     // Extrapolation if input is out of bounds
     double Extrapolation(double input_value);
@@ -76,5 +76,6 @@ private:
 
     // State of table: true for valie and false for invalid
     bool table_state_ = false;
-    const uint32_t max_table_size_ = 4294967295U;
+    const std::size_t max_table_size_ = 1000000; // do not exceed 1M, though uint32_t support up to 4294967295U.
+    std::size_t table_size_ = 0U;
 };

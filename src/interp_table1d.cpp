@@ -37,13 +37,13 @@ std::size_t InterpTable1D::GetTableSize(const vector<double>& input_vector1, con
 
 std::size_t InterpTable1D::GetTableSize()
 {
-    return GetTableSize(x_table_, y_table_);
+    std::size_t temp_size =  GetTableSize(x_table_, y_table_);
 }
 
-void InterpTable1D::CheckTableSize(const vector<double>& input_vector1, const vector<double>& input_vector2)
+void InterpTable1D::CheckTableSize()
 {
-    std::size_t temp_size = GetTableSize(input_vector1, input_vector2);
-    if ((temp_size > 0) && temp_size < max_table_size)
+    std::size_t temp_size = GetTableSize();
+    if ((temp_size > 0) && temp_size < max_table_size_)
     {
         table_state_ = false;
     }
