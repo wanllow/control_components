@@ -95,7 +95,7 @@ src/clean: src/CMakeFiles/interp_table1d.dir/clean
 # Target rules for target CMakeFiles/main.dir
 
 # All Build rule for target.
-CMakeFiles/main.dir/all:
+CMakeFiles/main.dir/all: src/CMakeFiles/interp_table1d.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles --progress-num=3,4 "Built target main"
@@ -103,7 +103,7 @@ CMakeFiles/main.dir/all:
 
 # Build rule for subdir invocation for target.
 CMakeFiles/main.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles 0
 .PHONY : CMakeFiles/main.dir/rule
