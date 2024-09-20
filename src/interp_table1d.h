@@ -59,9 +59,12 @@ public:
     double LookupTable(double input_value);
 
     // Configure the methods
-    void SetSearchMethod(const SearchMethod& method) { search_method_ = method; }
-    void SetInterpMethod(const InterpMethod& method) { interp_method_ = method; }
-    void SetExtrapMethod(const ExtrapMethod& method) { extrap_method_ = method; }
+    void SetSearchMethod(const SearchMethod& method);
+    void SetInterpMethod(const InterpMethod& method);
+    void SetExtrapMethod(const ExtrapMethod& method);
+    void SetExtrapMethod(const ExtrapMethod& method, const double& lower_value, const double& upper_value);
+    void SetLowerExtrapValue( const double& value );
+    void SetUpperExtrapValue( const double& value );
 
 private:
     vector<double> x_table_;
@@ -75,12 +78,23 @@ private:
 
     // Prelookup to find the index of the input value
     std::size_t PreLookup(double input_value);
+    std::size_t SearchIndexSeq(double input_value);
+    std::size_t SearchIndexBin(double input_value);
+    std::size_t SearchIndexNear(double input_value);
 
     // Interpolation between the two closest points
     double Interpolation(std::size_t prelookup_index, double input_value);
+    double InterpolationLinear(std::size_t prelookup_index, double input_value);
+    double InterpolationNearest(std::size_t prelookup_index, double input_value);
+    double InterpolationNext(std::size_t prelookup_index, double input_value);
+    double InterpolationPrevious(std::size_t prelookup_index, double input_value);
 
     // Extrapolation if input is out of bounds
-    double Extrapolation(double input_value);
+    double Extrapolation(std::size_t prelookup_index, double input_value);
+    double ExtrapolationClip(std::size_t prelookup_index, double input_value);
+    double ExtrapolationLinear(std::size_t prelookup_index, double input_value);
+    double ExtrapolationSpecify(std::size_t prelookup_index, double input_value);
+    
 
     // Currently selected methods
     SearchMethod search_method_ = SearchMethod::bin;
@@ -93,4 +107,6 @@ private:
     bool set_value_success_ = false;  // indicates whether a successful SetTableValue has been executed.
     const std::size_t max_table_size_ = 1000000; // do not exceed 1M, though uint32_t can support up to 4294967295U.
     std::size_t table_size_ = 0U; // length of table
+    double lower_extrap_value_specify_ = 0;
+    double upper_extrap_value_specify_ = 0;
 };

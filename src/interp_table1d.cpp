@@ -92,3 +92,36 @@ bool InterpTable1D::isStrictlyIncreasing(const std::vector<double> &input_vector
     }
     return true;
 }
+
+// configuration of lookup methods
+void InterpTable1D::SetSearchMethod(const SearchMethod &method)
+{
+    search_method_ = method;
+}
+void InterpTable1D::SetInterpMethod(const InterpMethod &method)
+{
+    interp_method_ = method;
+}
+void InterpTable1D::SetExtrapMethod(const ExtrapMethod &method)
+{
+    extrap_method_ = method;
+    if (table_valid_)
+    {
+        lower_extrap_value_specify_ = y_table_.front();
+        upper_extrap_value_specify_ = y_table_.back();
+    }
+}
+void InterpTable1D::SetExtrapMethod(const ExtrapMethod& method, const double& lower_value, const double& upper_value)
+{
+    extrap_method_ = method;
+    lower_extrap_value_specify_ = lower_value;
+    upper_extrap_value_specify_ = upper_value;
+}
+void InterpTable1D::SetLowerExtrapValue(const double &value)
+{
+    lower_extrap_value_specify_ = value;
+}
+void InterpTable1D::SetUpperExtrapValue(const double &value)
+{
+    upper_extrap_value_specify_ = value;
+}
