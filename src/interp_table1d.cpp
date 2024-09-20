@@ -1,54 +1,94 @@
 #include "interp_table1d.h"
 
+// Constructors
+InterpTable1D::InterpTable1D() {}
 InterpTable1D::InterpTable1D(const vector<double> &x_table, const vector<double> &y_table)
-    : x_table_(x_table), y_table_(y_table)
 {
-    CheckTableSize();
+    SetTableValue(x_table, y_table);
 }
 
-void InterpTable1D::SetValue(const vector<double> &x_table, const vector<double> &y_table)
+// Get table members
+std::size_t InterpTable1D::size()
 {
-    CheckTableSize();
-    SetTableX(x_table);
-    SetTableY(y_table);
+    return table_size_;
+}
+bool InterpTable1D::valid()
+{
+    return table_valid_;
+}
+bool InterpTable1D::empty()
+{
+    return table_empty_;
 }
 
-void InterpTable1D::SetTableX(const vector<double> &x_table)
+// Set table values to new input values, validate first then set value in.
+void InterpTable1D::SetTableValue(const vector<double> &x_table, const vector<double> &y_table)
 {
-    x_table_ = x_table;
-}
-
-void InterpTable1D::SetTableY(const vector<double> &y_table)
-{
-    y_table_ = y_table;
-}
-
-std::size_t InterpTable1D::GetTableSize(const vector<double>& input_vector1, const vector<double>& input_vector2)
-{
-    if (input_vector1.size() == input_vector2.size())
+    if (CheckTableState(x_table, y_table) == TableState::valid)
     {
-        return input_vector1.size();
+        x_table_ = x_table;
+        y_table_ = y_table;
+        set_value_success_ = true;
+        RefreshTableState();
     }
     else
     {
-        return 0;
+        // if the input value is invalid, check the current table value to set the table_state flag
+        // and reset the set_value_success_ flag to indicate a failed SetTableValue has been executed.
+        table_valid_ = (CheckTableState(x_table_, y_table_) == TableState::valid);
+        set_value_success_ = false;
     }
 }
 
-std::size_t InterpTable1D::GetTableSize()
+void InterpTable1D::RefreshTableState()
 {
-    std::size_t temp_size =  GetTableSize(x_table_, y_table_);
-}
-
-void InterpTable1D::CheckTableSize()
-{
-    std::size_t temp_size = GetTableSize();
-    if ((temp_size > 0) && temp_size < max_table_size_)
+    table_valid_ = (CheckTableState(x_table_, y_table_) == TableState::valid);
+    if (table_valid_)
     {
-        table_state_ = false;
+        table_valid_ = true;
+        table_empty_ = false;
+        table_size_ = x_table_.size();
     }
     else
     {
-        table_state_ = false;
+        table_valid_ = false;
+        table_empty_ = true;
+        table_size_ = 0;
     }
+}
+
+TableState InterpTable1D::CheckTableState(const vector<double> &input_vector1, const vector<double> &input_vector2)
+{
+    if (input_vector1.empty() || input_vector2.empty())
+    {
+        return TableState::empty;
+    }
+    else if (input_vector1.size() > max_table_size_ || input_vector2.size() > max_table_size_)
+    {
+        return TableState::size_exceed_limit;
+    }
+    else if (input_vector1.size() != input_vector2.size())
+    {
+        return TableState::size_not_equal;
+    }
+    else if (!isStrictlyIncreasing(input_vector1))
+    {
+        return TableState::x_not_mono_increase;
+    }
+    else
+    {
+        return TableState::valid;
+    }
+}
+
+bool InterpTable1D::isStrictlyIncreasing(const std::vector<double> &input_vector)
+{
+    for (std::size_t index = 1; index < input_vector.size(); ++index)
+    {
+        if (input_vector[index - 1] >= input_vector[index])
+        {
+            return false;
+        }
+    }
+    return true;
 }

@@ -19,4 +19,4 @@ add_subdirectory(src)
 add_executable(main main.cpp)
 
 # Link the executable with the static library
-target_link_libraries(main interp_table)
+target_link_libraries(main interp_table1d)
