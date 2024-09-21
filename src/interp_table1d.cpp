@@ -1,5 +1,7 @@
 #include "interp_table1d.h"
 
+using std::vector;
+using std::size_t;
 // Constructors
 InterpTable1D::InterpTable1D() {}
 InterpTable1D::InterpTable1D(const vector<double> &x_table, const vector<double> &y_table)
@@ -8,7 +10,7 @@ InterpTable1D::InterpTable1D(const vector<double> &x_table, const vector<double>
 }
 
 // Get table members
-std::size_t InterpTable1D::size()
+size_t InterpTable1D::size()
 {
     return table_size_;
 }
@@ -57,7 +59,7 @@ void InterpTable1D::RefreshTableState()
     }
 }
 
-TableState InterpTable1D::CheckTableState(const vector<double> &input_vector1, const vector<double> &input_vector2)
+InterpTable1D::TableState InterpTable1D::CheckTableState(const vector<double> &input_vector1, const vector<double> &input_vector2)
 {
     if (input_vector1.empty() || input_vector2.empty())
     {
@@ -81,9 +83,9 @@ TableState InterpTable1D::CheckTableState(const vector<double> &input_vector1, c
     }
 }
 
-bool InterpTable1D::isStrictlyIncreasing(const std::vector<double> &input_vector)
+bool InterpTable1D::isStrictlyIncreasing(const vector<double> &input_vector)
 {
-    for (std::size_t index = 1; index < input_vector.size(); ++index)
+    for (size_t index = 1; index < input_vector.size(); ++index)
     {
         if (input_vector[index - 1] >= input_vector[index])
         {
