@@ -1,7 +1,8 @@
 #include "interp_table1d.h"
+#include <algorithm>
 
-using std::vector;
 using std::size_t;
+using std::vector;
 // Constructors
 InterpTable1D::InterpTable1D() {}
 InterpTable1D::InterpTable1D(const vector<double> &x_table, const vector<double> &y_table)
@@ -21,6 +22,10 @@ bool InterpTable1D::valid()
 bool InterpTable1D::empty()
 {
     return table_empty_;
+}
+bool InterpTable1D::IfWriteSuccess()
+{
+    return set_value_success_;
 }
 
 // Set table values to new input values, validate first then set value in.
@@ -95,7 +100,7 @@ bool InterpTable1D::isStrictlyIncreasing(const vector<double> &input_vector)
     return true;
 }
 
-// configuration of lookup methods
+// Configurations of lookup methods
 void InterpTable1D::SetSearchMethod(const SearchMethod &method)
 {
     search_method_ = method;
@@ -113,7 +118,7 @@ void InterpTable1D::SetExtrapMethod(const ExtrapMethod &method)
         upper_extrap_value_specify_ = y_table_.back();
     }
 }
-void InterpTable1D::SetExtrapMethod(const ExtrapMethod& method, const double& lower_value, const double& upper_value)
+void InterpTable1D::SetExtrapMethod(const ExtrapMethod &method, const double &lower_value, const double &upper_value)
 {
     extrap_method_ = method;
     lower_extrap_value_specify_ = lower_value;
@@ -126,4 +131,193 @@ void InterpTable1D::SetLowerExtrapValue(const double &value)
 void InterpTable1D::SetUpperExtrapValue(const double &value)
 {
     upper_extrap_value_specify_ = value;
+}
+
+std::size_t InterpTable1D::PreLookup(const double &input_value)
+{
+    if (table_valid_)
+    {
+        switch (search_method_)
+        {
+        case SearchMethod::seq:
+        {
+            lookup_result_ = SearchIndexSequential(input_value, x_table_); // Sequential search
+            break;
+        }
+
+        case SearchMethod::bin:
+        {
+            lookup_result_ = SearchIndexBinary(input_value, x_table_); // Binary search
+            break;
+        }
+
+        case SearchMethod::near:
+        {
+            lookup_result_ = SearchIndexNear(input_value, x_table_, lookup_result_); // Search based on last index
+            break;
+        }
+
+        default:
+            RefreshTableState();
+        }
+    }
+    return lookup_result_;
+}
+
+// Local function: search index using sequential method
+size_t InterpTable1D::SearchIndexSequential(const double &value, const vector<double> &table)
+{
+    size_t index = 0;
+    for (index = 0; index != table.size(); ++index)
+    {
+        if (value <= table[index])
+        {
+            break;
+        }
+    }
+    return index;
+}
+
+// Local function: search index using binary method
+size_t InterpTable1D::SearchIndexBinary(const double &value, const vector<double> &table)
+{
+    // Edge cases: value is out of bound
+
+    if (value <= table.front())
+    {
+        return 0;
+    }
+    else if (value >= table.back())
+    {
+        return table.size();
+    }
+
+    size_t left = 0;
+    size_t right = table.size() - 1;
+
+    while (left < right)
+    {
+        size_t mid = left + (right - left) / 2; // Avoid overflow with safer midpoint calculation
+
+        if (value == table[mid])
+        {
+            return mid; // Exact match found
+        }
+        else if (value < table[mid])
+        {
+            right = mid; // Narrow down to the left half
+        }
+        else
+        {
+            left = mid + 1; // Narrow down to the right half
+        }
+    }
+    return left;
+}
+
+// Local function: search index using last search result
+size_t InterpTable1D::SearchIndexNear(const double &value, const vector<double> &table, const size_t &last_index)
+{
+    size_t index = last_index;
+
+    if (value <= table.front())
+    {
+        return 0;
+    }
+    else if (value >= table.back())
+    {
+        return table.size();
+    }
+
+    // Search backward if the previous value is table.size()
+    if (last_index == table.size())
+    {
+        while (value < table[index - 1])
+        {
+            --index;
+        }
+        return index;
+    }
+
+    // Search forward if the new value is larger than the previous value
+    if (value >= table[index])
+    {
+        while (index < table.size() && value > table[index])
+        {
+            ++index;
+        }
+    }
+    // Search backward if the new value is smaller than the previous value
+    else if (value <= table[index - 1])
+    {
+        while (index > 0 && value < table[index - 1])
+        {
+            --index;
+        }
+    }
+    return index;
+}
+
+// Interpolation between the two closest points
+double InterpTable1D::Interpolation(const std::size_t &index, const double &x_value)
+{
+    if (table_valid_)
+    {
+        switch (interp_method_)
+        {
+        case InterpMethod::linear:
+        {
+            return InterpolationLinear(index, x_value);
+        }
+        case InterpMethod::nearest:
+        {
+            return InterpolationNearest(index, x_value);
+        }
+        case InterpMethod::next:
+        {
+            return InterpolationNext(index, x_value);
+        }
+        case InterpMethod::previous:
+        {
+            return InterpolationPrevious(index, x_value);
+        }
+        default:
+        {
+            RefreshTableState();
+            return lookup_result_;
+        }
+        }
+    }
+    else
+    {
+        RefreshTableState();
+        return lookup_result_;
+    }
+}
+double InterpTable1D::InterpolationLinear(const std::size_t &index, const double &x_value)
+{
+    // Retrieve the two nearest points for interpolation
+    double x1 = x_table_[index - 1];
+    double x2 = x_table_[index];
+    double y1 = y_table_[index - 1];
+    double y2 = y_table_[index];
+
+    // Calculate the weight for linear interpolation
+    double delta_x = x2 - x1;
+    double weight = (delta_x == 0) ? 0.5 : (x_value - x1) / delta_x;
+
+    // Linearly interpolate the y value based on the weight
+    return y1 + weight * (y2 - y1);
+}
+double InterpTable1D::InterpolationNearest(const std::size_t &index, const double &x_value)
+{
+    return ((x_value - x_table_[index - 1]) <= (x_table_[index] - x_value)) ? y_table_[index - 1] : y_table_[index];
+}
+double InterpTable1D::InterpolationNext(const std::size_t &index, const double &x_value)
+{
+    return y_table_[index];
+}
+double InterpTable1D::InterpolationPrevious(const std::size_t &index, const double &x_value)
+{
+    return y_table_[index - 1];
 }

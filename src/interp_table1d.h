@@ -2,12 +2,12 @@
 #include <array>
 #include <vector>
 #include <cmath>
-#include <cstdint>
 #include <stdexcept>
-#include <algorithm>
 
 class InterpTable1D
 {
+
+    /** Forward declarations of enums **/
 private:
     enum class SearchMethod;
     enum class InterpMethod;
@@ -24,6 +24,7 @@ public:
     std::size_t size();
     bool valid();
     bool empty();
+    bool IfWriteSuccess();
 
     // Set and clear the table values
     void SetTableValue(const std::vector<double> &x_table, const std::vector<double> &y_table);
@@ -40,9 +41,13 @@ public:
     void SetLowerExtrapValue(const double &value);
     void SetUpperExtrapValue(const double &value);
 
+
 private:
     std::vector<double> x_table_;
     std::vector<double> y_table_;
+    double input_value_ = 0;
+    double lookup_result_ = 0;
+    std::size_t index_prelookup_ = 0;
 
     // Methods for checking tables
     void RefreshTableState();
@@ -51,23 +56,23 @@ private:
     TableState CheckTableState(const std::vector<double> &input_vector1, const std::vector<double> &input_vector2);
 
     // Prelookup to find the index of the input value
-    std::size_t PreLookup(double input_value);
-    std::size_t SearchIndexSeq(double input_value);
-    std::size_t SearchIndexBin(double input_value);
-    std::size_t SearchIndexNear(double input_value);
+    std::size_t PreLookup(const double &input_value);
+    std::size_t SearchIndexSequential(const double &value, const std::vector<double> &table);
+    std::size_t SearchIndexBinary(const double &value, const std::vector<double> &table);
+    std::size_t SearchIndexNear(const double &value, const std::vector<double> &table, const std::size_t &last_index);
 
     // Interpolation between the two closest points
-    double Interpolation(std::size_t prelookup_index, double input_value);
-    double InterpolationLinear(std::size_t prelookup_index, double input_value);
-    double InterpolationNearest(std::size_t prelookup_index, double input_value);
-    double InterpolationNext(std::size_t prelookup_index, double input_value);
-    double InterpolationPrevious(std::size_t prelookup_index, double input_value);
+    double Interpolation(const std::size_t &prelookup_index, const double &x_value);
+    double InterpolationLinear(const std::size_t &prelookup_index, const double &x_value);
+    double InterpolationNearest(const std::size_t &prelookup_index, const double &x_value);
+    double InterpolationNext(const std::size_t &prelookup_index, const double &x_value);
+    double InterpolationPrevious(const std::size_t &prelookup_index, const double &x_value);
 
     // Extrapolation if input is out of bounds
-    double Extrapolation(std::size_t prelookup_index, double input_value);
-    double ExtrapolationClip(std::size_t prelookup_index, double input_value);
-    double ExtrapolationLinear(std::size_t prelookup_index, double input_value);
-    double ExtrapolationSpecify(std::size_t prelookup_index, double input_value);
+    double Extrapolation(const std::size_t& prelookup_index, const double& x_value);
+    double ExtrapolationClip(const std::size_t& prelookup_index, const double& x_value);
+    double ExtrapolationLinear(const std::size_t& prelookup_index, const double& x_value);
+    double ExtrapolationSpecify(const std::size_t& prelookup_index, const double& x_value);
 
     // Currently selected methods
     SearchMethod search_method_ = SearchMethod::bin;
@@ -75,14 +80,15 @@ private:
     ExtrapMethod extrap_method_ = ExtrapMethod::clip;
 
     // State of table
-    bool table_empty_ = true;                    // indicates the table is empty
-    bool table_valid_ = false;                   // indicates the table is valid
-    bool set_value_success_ = false;             // indicates whether a successful SetTableValue has been executed.
-    const std::size_t max_table_size_ = 1000000; // do not exceed 1M, though uint32_t can support up to 4294967295U.
-    std::size_t table_size_ = 0U;                // length of table
-    double lower_extrap_value_specify_ = 0;
-    double upper_extrap_value_specify_ = 0;
-    
+    bool table_empty_ = true;        // indicates the table is empty
+    bool table_valid_ = false;       // indicates the table is valid
+    bool set_value_success_ = false; // indicates whether a successful SetTableValue has been executed.
+
+    // Other parameters
+    const std::size_t max_table_size_ = 1000000;    // do not exceed 1M, though uint32_t can support up to 4294967295U.
+    std::size_t table_size_ = 0U;                   // length of table
+    double lower_extrap_value_specify_ = 0;         // user specified value for out of boundary look up
+    double upper_extrap_value_specify_ = 0;         // user specified value for out of boundary look up
 
     enum class SearchMethod
     {
@@ -93,25 +99,25 @@ private:
 
     enum class InterpMethod
     {
-        nearest = 0,
-        linear = 1,
-        next = 2,
-        previous = 3
+        nearest = 0,    // use nearest point value
+        linear = 1,     // linear interpolation
+        next = 2,       // use the next point value
+        previous = 3    // use the previous point value
     };
 
     enum class ExtrapMethod
     {
-        clip = 0,
-        linear = 1,
-        specify = 2
+        clip = 0,       // use end value
+        linear = 1,     // linear extrpolation
+        specify = 2     // user specify the values
     };
 
     enum class TableState
     {
-        empty = 0,
-        size_not_equal = 1,
-        size_exceed_limit = 2,
-        x_not_mono_increase = 3,
-        valid = 4
+        empty = 0,              // empty table
+        size_not_equal = 1,     // sizes of x_table and y_table not match
+        size_exceed_limit = 2,  // table size exceeds limit
+        x_not_mono_increase = 3,// x table is not strictly increasing
+        valid = 4               // valid state
     };
 };
