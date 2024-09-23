@@ -70,21 +70,21 @@ InterpTable1D::TableState InterpTable1D::CheckTableState(const vector<double> &i
     {
         return TableState::empty;
     }
-    else if (input_vector1.size() > max_table_size_ || input_vector2.size() > max_table_size_)
+    else if (input_vector1.size() > max_table_size_ || input_vector1.size() < 2)
     {
-        return TableState::size_exceed_limit;
+        return TableState::size_invalid;    // x table size must be within the range of [2 max_table_size]
     }
     else if (input_vector1.size() != input_vector2.size())
     {
-        return TableState::size_not_equal;
+        return TableState::size_not_match;  // y table size must be equal to x table size
     }
     else if (!isStrictlyIncreasing(input_vector1))
     {
-        return TableState::x_not_mono_increase;
+        return TableState::x_not_increase;  // x table data must be strictly increasing
     }
     else
     {
-        return TableState::valid;
+        return TableState::valid;           // valid data for assignment
     }
 }
 
@@ -133,35 +133,35 @@ void InterpTable1D::SetUpperExtrapValue(const double &value)
     upper_extrap_value_specify_ = value;
 }
 
-std::size_t InterpTable1D::PreLookup(const double &input_value)
+std::size_t InterpTable1D::PreLookup(const double &x_value)
 {
-    if (table_valid_)
+    size_t prelook_index = 0;
+    switch (search_method_)
     {
-        switch (search_method_)
-        {
-        case SearchMethod::seq:
-        {
-            lookup_result_ = SearchIndexSequential(input_value, x_table_); // Sequential search
-            break;
-        }
-
-        case SearchMethod::bin:
-        {
-            lookup_result_ = SearchIndexBinary(input_value, x_table_); // Binary search
-            break;
-        }
-
-        case SearchMethod::near:
-        {
-            lookup_result_ = SearchIndexNear(input_value, x_table_, lookup_result_); // Search based on last index
-            break;
-        }
-
-        default:
-            RefreshTableState();
-        }
+    case SearchMethod::seq:
+    {
+        prelook_index = SearchIndexSequential(x_value, x_table_); // Sequential search
+        break;
     }
-    return lookup_result_;
+
+    case SearchMethod::bin:
+    {
+        prelook_index = SearchIndexBinary(x_value, x_table_); // Binary search
+        break;
+    }
+
+    case SearchMethod::near:
+    {
+        prelook_index = SearchIndexNear(x_value, x_table_, lookup_result_); // Search based on last index
+        break;
+    }
+
+    default:
+        prelook_index = prelook_index_; // return the last value if failure occured.
+        RefreshTableState();
+    }
+
+    return prelook_index;
 }
 
 // Local function: search index using sequential method
@@ -261,35 +261,21 @@ size_t InterpTable1D::SearchIndexNear(const double &value, const vector<double> 
 // Interpolation between the two closest points
 double InterpTable1D::Interpolation(const std::size_t &index, const double &x_value)
 {
-    if (table_valid_)
+    switch (interp_method_)
     {
-        switch (interp_method_)
-        {
-        case InterpMethod::linear:
-        {
-            return InterpolationLinear(index, x_value);
-        }
-        case InterpMethod::nearest:
-        {
-            return InterpolationNearest(index, x_value);
-        }
-        case InterpMethod::next:
-        {
-            return InterpolationNext(index, x_value);
-        }
-        case InterpMethod::previous:
-        {
-            return InterpolationPrevious(index, x_value);
-        }
-        default:
-        {
-            RefreshTableState();
-            return lookup_result_;
-        }
-        }
-    }
-    else
-    {
+    case InterpMethod::linear:
+        return InterpolationLinear(index, x_value);
+
+    case InterpMethod::nearest:
+        return InterpolationNearest(index, x_value);
+
+    case InterpMethod::next:
+        return InterpolationNext(index, x_value);
+
+    case InterpMethod::previous:
+        return InterpolationPrevious(index, x_value);
+
+    default:
         RefreshTableState();
         return lookup_result_;
     }
@@ -320,4 +306,110 @@ double InterpTable1D::InterpolationNext(const std::size_t &index, const double &
 double InterpTable1D::InterpolationPrevious(const std::size_t &index, const double &x_value)
 {
     return y_table_[index - 1];
+}
+
+// Extrapolation if input is out of bounds
+double InterpTable1D::Extrapolation(const std::size_t &index, const double &x_value)
+{
+    switch (extrap_method_)
+    {
+    case ExtrapMethod::clip:
+        return ExtrapolationClip(index);
+    case ExtrapMethod::linear:
+        return ExtrapolationLinear(index, x_value);
+    case ExtrapMethod::specify:
+        return ExtrapolationSpecify(index, lower_extrap_value_specify_, upper_extrap_value_specify_);
+    default:
+        RefreshTableState();
+        return lookup_result_;
+    }
+}
+double InterpTable1D::ExtrapolationClip(const std::size_t &index)
+{
+    if (index == 0)
+    {
+        return x_table_.front();
+    }
+    else if (index == table_size_)
+    {
+        return x_table_.back();
+    }
+    else
+    {
+        return lookup_result_; // if failure occurs, output the last value.
+    }
+}
+double InterpTable1D::ExtrapolationLinear(const std::size_t &index, const double &x_value)
+{
+    if (index == 0)
+    {
+        double x1 = x_table_[0];
+        double x2 = x_table_[1];
+        double y1 = y_table_[0];
+        double y2 = y_table_[1];
+
+        // Calculate the weight for linear extrapolation
+        double delta_x = x2 - x1;
+        double weight = (delta_x == 0) ? 0.5 : (x_value - x1) / delta_x;
+
+        // Linearly extrapolate the y value based on the weight
+        return y1 + weight * (y2 - y1);
+    }
+    else if (index == table_size_)
+    {
+        double x1 = x_table_[table_size_ - 2];
+        double x2 = x_table_[table_size_ - 1];
+        double y1 = y_table_[table_size_ - 2];
+        double y2 = y_table_[table_size_ - 1];
+
+        // Calculate the weight for linear extrapolation
+        double delta_x = x2 - x1;
+        double weight = (delta_x == 0) ? 0.5 : (x_value - x1) / delta_x;
+
+        // Linearly extrapolate the y value based on the weight
+        return y1 + weight * (y2 - y1);
+    }
+    else
+    {
+        return lookup_result_; // if failure occurs, output the last value.
+    }
+}
+double InterpTable1D::ExtrapolationSpecify(const std::size_t &index, const double &lower_extrap_value, const double &upper_extrap_value)
+{
+    if (index == 0)
+    {
+        return lower_extrap_value;
+    }
+    else if (index == table_size_)
+    {
+        return upper_extrap_value;
+    }
+    else
+    {
+        return lookup_result_; // if failure occurs, output the last value.
+    }
+}
+
+// Final function LookupTable
+double InterpTable1D::LookupTable(const double &x_value)
+{
+    if (table_valid_)
+    {
+        
+        size_t index = PreLookup(x_value);
+        if (index == 0 || index == table_size_) // in the case for extrapolation
+        {
+            lookup_result_ = Extrapolation(index, x_value);
+        }
+        else
+        {
+            lookup_result_ = Interpolation(index, x_value);
+        }
+        x_value_ = x_value; // restore the input value to member variable, for use in some cases.
+    }
+    else
+    {
+        RefreshTableState();
+    }
+    return lookup_result_;
 }

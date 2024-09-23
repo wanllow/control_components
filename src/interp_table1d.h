@@ -31,7 +31,7 @@ public:
     void ClearValue();
 
     // Lookup table based on input, using current search, interp, and extrap methods
-    double LookupTable(double input_value);
+    double LookupTable(const double& x_value);
 
     // Configure the methods
     void SetSearchMethod(const SearchMethod &method);
@@ -45,9 +45,9 @@ public:
 private:
     std::vector<double> x_table_;
     std::vector<double> y_table_;
-    double input_value_ = 0;
+    double x_value_ = 0;                // restore the input x value for lookup, use if necessary.
     double lookup_result_ = 0;
-    std::size_t index_prelookup_ = 0;
+    std::size_t prelook_index_ = 0;
 
     // Methods for checking tables
     void RefreshTableState();
@@ -56,10 +56,10 @@ private:
     TableState CheckTableState(const std::vector<double> &input_vector1, const std::vector<double> &input_vector2);
 
     // Prelookup to find the index of the input value
-    std::size_t PreLookup(const double &input_value);
-    std::size_t SearchIndexSequential(const double &value, const std::vector<double> &table);
-    std::size_t SearchIndexBinary(const double &value, const std::vector<double> &table);
-    std::size_t SearchIndexNear(const double &value, const std::vector<double> &table, const std::size_t &last_index);
+    std::size_t PreLookup(const double &x_value);
+    std::size_t SearchIndexSequential(const double &value, const std::vector<double> &x_table);
+    std::size_t SearchIndexBinary(const double &value, const std::vector<double> &x_table);
+    std::size_t SearchIndexNear(const double &value, const std::vector<double> &x_table, const std::size_t &last_index);
 
     // Interpolation between the two closest points
     double Interpolation(const std::size_t &prelookup_index, const double &x_value);
@@ -70,9 +70,9 @@ private:
 
     // Extrapolation if input is out of bounds
     double Extrapolation(const std::size_t& prelookup_index, const double& x_value);
-    double ExtrapolationClip(const std::size_t& prelookup_index, const double& x_value);
+    double ExtrapolationClip(const std::size_t& prelookup_index);
     double ExtrapolationLinear(const std::size_t& prelookup_index, const double& x_value);
-    double ExtrapolationSpecify(const std::size_t& prelookup_index, const double& x_value);
+    double ExtrapolationSpecify(const std::size_t& prelookup_index, const double& lower_extrap_value, const double& upper_extrap_value);
 
     // Currently selected methods
     SearchMethod search_method_ = SearchMethod::bin;
@@ -115,9 +115,9 @@ private:
     enum class TableState
     {
         empty = 0,              // empty table
-        size_not_equal = 1,     // sizes of x_table and y_table not match
-        size_exceed_limit = 2,  // table size exceeds limit
-        x_not_mono_increase = 3,// x table is not strictly increasing
+        size_not_match = 1,     // sizes of x_table and y_table not match
+        size_invalid = 2,  // table size exceeds limit
+        x_not_increase = 3,// x table is not strictly increasing
         valid = 4               // valid state
     };
 };
