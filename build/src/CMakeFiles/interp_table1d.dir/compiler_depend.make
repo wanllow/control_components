@@ -176,6 +176,7 @@ src/CMakeFiles/interp_table1d.dir/interp_table1d.cpp.o: ../src/interp_table1d.cp
   /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
   /usr/include/c++/11/bits/charconv.h \
   /usr/include/c++/11/bits/basic_string.tcc \
+  ../src/table_dependency.h \
   /usr/include/c++/11/algorithm \
   /usr/include/c++/11/bits/stl_algo.h \
   /usr/include/c++/11/bits/algorithmfwd.h \
@@ -193,6 +194,8 @@ src/CMakeFiles/interp_table1d.dir/interp_table1d.cpp.o: ../src/interp_table1d.cp
 /usr/include/c++/11/bits/charconv.h:
 
 /usr/include/asm-generic/errno.h:
+
+../src/table_dependency.h:
 
 /usr/include/x86_64-linux-gnu/bits/errno.h:
 

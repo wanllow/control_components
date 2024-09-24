@@ -204,7 +204,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
   /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
   /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
   /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
-  /usr/include/x86_64-linux-gnu/bits/iscanonical.h
+  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+  ../src/table_dependency.h
 
 
 /usr/include/x86_64-linux-gnu/bits/iscanonical.h:
@@ -282,6 +283,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/x86_64-linux-gnu/bits/types/error_t.h:
 
 /usr/include/asm-generic/errno.h:
+
+../src/table_dependency.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_base.h:
 

@@ -328,11 +328,11 @@ double InterpTable1D::ExtrapolationClip(const std::size_t &index)
 {
     if (index == 0)
     {
-        return x_table_.front();
+        return y_table_.front();
     }
     else if (index == table_size_)
     {
-        return x_table_.back();
+        return y_table_.back();
     }
     else
     {
@@ -395,7 +395,6 @@ double InterpTable1D::LookupTable(const double &x_value)
 {
     if (table_valid_)
     {
-        
         size_t index = PreLookup(x_value);
         if (index == 0 || index == table_size_) // in the case for extrapolation
         {
