@@ -5,9 +5,6 @@
 using std::size_t;
 using std::vector;
 
-
-
-
 int main()
 {
 	std::vector<double> x_table{1, 2, 3, 4, 5};

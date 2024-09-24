@@ -1,35 +1,35 @@
-#include "interp_table1d.h"
+#include "lookup_table1d.h"
 #include <algorithm>
 
 using std::size_t;
 using std::vector;
 // Constructors
-InterpTable1D::InterpTable1D() {}
-InterpTable1D::InterpTable1D(const vector<double> &x_table, const vector<double> &y_table)
+LookupTable1D::LookupTable1D() {}
+LookupTable1D::LookupTable1D(const vector<double> &x_table, const vector<double> &y_table)
 {
     SetTableValue(x_table, y_table);
 }
 
 // Get table members
-size_t InterpTable1D::size()
+size_t LookupTable1D::size()
 {
     return table_size_;
 }
-bool InterpTable1D::valid()
+bool LookupTable1D::valid()
 {
     return table_valid_;
 }
-bool InterpTable1D::empty()
+bool LookupTable1D::empty()
 {
     return table_empty_;
 }
-bool InterpTable1D::IfWriteSuccess()
+bool LookupTable1D::IfWriteSuccess()
 {
     return set_value_success_;
 }
 
 // Set table values to new input values, validate first then set value in.
-void InterpTable1D::SetTableValue(const vector<double> &x_table, const vector<double> &y_table)
+void LookupTable1D::SetTableValue(const vector<double> &x_table, const vector<double> &y_table)
 {
     if (CheckTableState(x_table, y_table) == TableState::valid)
     {
@@ -47,7 +47,7 @@ void InterpTable1D::SetTableValue(const vector<double> &x_table, const vector<do
     }
 }
 
-void InterpTable1D::RefreshTableState()
+void LookupTable1D::RefreshTableState()
 {
     table_valid_ = (CheckTableState(x_table_, y_table_) == TableState::valid);
     if (table_valid_)
@@ -64,7 +64,7 @@ void InterpTable1D::RefreshTableState()
     }
 }
 
-InterpTable1D::TableState InterpTable1D::CheckTableState(const vector<double> &input_vector1, const vector<double> &input_vector2)
+LookupTable1D::TableState LookupTable1D::CheckTableState(const vector<double> &input_vector1, const vector<double> &input_vector2)
 {
     if (input_vector1.empty() || input_vector2.empty())
     {
@@ -88,7 +88,7 @@ InterpTable1D::TableState InterpTable1D::CheckTableState(const vector<double> &i
     }
 }
 
-bool InterpTable1D::isStrictlyIncreasing(const vector<double> &input_vector)
+bool LookupTable1D::isStrictlyIncreasing(const vector<double> &input_vector)
 {
     for (size_t index = 1; index < input_vector.size(); ++index)
     {
@@ -101,15 +101,15 @@ bool InterpTable1D::isStrictlyIncreasing(const vector<double> &input_vector)
 }
 
 // Configurations of lookup methods
-void InterpTable1D::SetSearchMethod(const SearchMethod &method)
+void LookupTable1D::SetSearchMethod(const SearchMethod &method)
 {
     search_method_ = method;
 }
-void InterpTable1D::SetInterpMethod(const InterpMethod &method)
+void LookupTable1D::SetInterpMethod(const InterpMethod &method)
 {
     interp_method_ = method;
 }
-void InterpTable1D::SetExtrapMethod(const ExtrapMethod &method)
+void LookupTable1D::SetExtrapMethod(const ExtrapMethod &method)
 {
     extrap_method_ = method;
     if (table_valid_)
@@ -118,22 +118,22 @@ void InterpTable1D::SetExtrapMethod(const ExtrapMethod &method)
         upper_extrap_value_specify_ = y_table_.back();
     }
 }
-void InterpTable1D::SetExtrapMethod(const ExtrapMethod &method, const double &lower_value, const double &upper_value)
+void LookupTable1D::SetExtrapMethod(const ExtrapMethod &method, const double &lower_value, const double &upper_value)
 {
     extrap_method_ = method;
     lower_extrap_value_specify_ = lower_value;
     upper_extrap_value_specify_ = upper_value;
 }
-void InterpTable1D::SetLowerExtrapValue(const double &value)
+void LookupTable1D::SetLowerExtrapValue(const double &value)
 {
     lower_extrap_value_specify_ = value;
 }
-void InterpTable1D::SetUpperExtrapValue(const double &value)
+void LookupTable1D::SetUpperExtrapValue(const double &value)
 {
     upper_extrap_value_specify_ = value;
 }
 
-std::size_t InterpTable1D::PreLookup(const double &x_value)
+std::size_t LookupTable1D::PreLookup(const double &x_value)
 {
     size_t prelook_index = 0;
     switch (search_method_)
@@ -165,7 +165,7 @@ std::size_t InterpTable1D::PreLookup(const double &x_value)
 }
 
 // Local function: search index using sequential method
-size_t InterpTable1D::SearchIndexSequential(const double &value, const vector<double> &table)
+size_t LookupTable1D::SearchIndexSequential(const double &value, const vector<double> &table)
 {
     size_t index = 0;
     for (index = 0; index != table.size(); ++index)
@@ -179,7 +179,7 @@ size_t InterpTable1D::SearchIndexSequential(const double &value, const vector<do
 }
 
 // Local function: search index using binary method
-size_t InterpTable1D::SearchIndexBinary(const double &value, const vector<double> &table)
+size_t LookupTable1D::SearchIndexBinary(const double &value, const vector<double> &table)
 {
     // Edge cases: value is out of bound
 
@@ -216,7 +216,7 @@ size_t InterpTable1D::SearchIndexBinary(const double &value, const vector<double
 }
 
 // Local function: search index using last search result
-size_t InterpTable1D::SearchIndexNear(const double &value, const vector<double> &table, const size_t &last_index)
+size_t LookupTable1D::SearchIndexNear(const double &value, const vector<double> &table, const size_t &last_index)
 {
     size_t index = last_index;
 
@@ -259,7 +259,7 @@ size_t InterpTable1D::SearchIndexNear(const double &value, const vector<double> 
 }
 
 // Interpolation between the two closest points
-double InterpTable1D::Interpolation(const std::size_t &index, const double &x_value)
+double LookupTable1D::Interpolation(const std::size_t &index, const double &x_value)
 {
     switch (interp_method_)
     {
@@ -280,7 +280,7 @@ double InterpTable1D::Interpolation(const std::size_t &index, const double &x_va
         return lookup_result_;
     }
 }
-double InterpTable1D::InterpolationLinear(const std::size_t &index, const double &x_value)
+double LookupTable1D::InterpolationLinear(const std::size_t &index, const double &x_value)
 {
     // Retrieve the two nearest points for interpolation
     double x1 = x_table_[index - 1];
@@ -295,21 +295,21 @@ double InterpTable1D::InterpolationLinear(const std::size_t &index, const double
     // Linearly interpolate the y value based on the weight
     return y1 + weight * (y2 - y1);
 }
-double InterpTable1D::InterpolationNearest(const std::size_t &index, const double &x_value)
+double LookupTable1D::InterpolationNearest(const std::size_t &index, const double &x_value)
 {
     return ((x_value - x_table_[index - 1]) <= (x_table_[index] - x_value)) ? y_table_[index - 1] : y_table_[index];
 }
-double InterpTable1D::InterpolationNext(const std::size_t &index, const double &x_value)
+double LookupTable1D::InterpolationNext(const std::size_t &index, const double &x_value)
 {
     return y_table_[index];
 }
-double InterpTable1D::InterpolationPrevious(const std::size_t &index, const double &x_value)
+double LookupTable1D::InterpolationPrevious(const std::size_t &index, const double &x_value)
 {
     return y_table_[index - 1];
 }
 
 // Extrapolation if input is out of bounds
-double InterpTable1D::Extrapolation(const std::size_t &index, const double &x_value)
+double LookupTable1D::Extrapolation(const std::size_t &index, const double &x_value)
 {
     switch (extrap_method_)
     {
@@ -324,7 +324,7 @@ double InterpTable1D::Extrapolation(const std::size_t &index, const double &x_va
         return lookup_result_;
     }
 }
-double InterpTable1D::ExtrapolationClip(const std::size_t &index)
+double LookupTable1D::ExtrapolationClip(const std::size_t &index)
 {
     if (index == 0)
     {
@@ -339,7 +339,7 @@ double InterpTable1D::ExtrapolationClip(const std::size_t &index)
         return lookup_result_; // if failure occurs, output the last value.
     }
 }
-double InterpTable1D::ExtrapolationLinear(const std::size_t &index, const double &x_value)
+double LookupTable1D::ExtrapolationLinear(const std::size_t &index, const double &x_value)
 {
     if (index == 0)
     {
@@ -374,7 +374,7 @@ double InterpTable1D::ExtrapolationLinear(const std::size_t &index, const double
         return lookup_result_; // if failure occurs, output the last value.
     }
 }
-double InterpTable1D::ExtrapolationSpecify(const std::size_t &index, const double &lower_extrap_value, const double &upper_extrap_value)
+double LookupTable1D::ExtrapolationSpecify(const std::size_t &index, const double &lower_extrap_value, const double &upper_extrap_value)
 {
     if (index == 0)
     {
@@ -391,7 +391,7 @@ double InterpTable1D::ExtrapolationSpecify(const std::size_t &index, const doubl
 }
 
 // Final function LookupTable
-double InterpTable1D::LookupTable(const double &x_value)
+double LookupTable1D::LookupTable(const double &x_value)
 {
     if (table_valid_)
     {

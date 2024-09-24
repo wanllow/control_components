@@ -1,11 +1,3 @@
-# Define sources and headers for the library
-set(SOURCES
-    interp_table1d.cpp
-)
-
-set(HEADERS
-    interp_table1d.h
-)
-
-# Create a static library from the sources
-add_library(interp_table1d STATIC ${SOURCES})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/dependencies)
+add_subdirectory(lookup_table1d)
+add_subdirectory(lookup_table2d)
