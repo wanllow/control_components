@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/longwang/workspace/InterpTable/interp_table/main.cpp" "src/CMakeFiles/interp_table.dir/__/main.cpp.o" "gcc" "src/CMakeFiles/interp_table.dir/__/main.cpp.o.d"
+  "/home/longwang/workspace/InterpTable/interp_table/main.cpp" "src/CMakeFiles/LookupTableProject.dir/__/main.cpp.o" "gcc" "src/CMakeFiles/LookupTableProject.dir/__/main.cpp.o.d"
   )
 
 # Targets to which this target links.

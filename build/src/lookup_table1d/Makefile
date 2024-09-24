@@ -87,14 +87,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles /home/longwang/workspace/InterpTable/interp_table/build//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles /home/longwang/workspace/InterpTable/interp_table/build/src/lookup_table1d//CMakeFiles/progress.marks
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/lookup_table1d/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/lookup_table1d/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,44 +103,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/lookup_table1d/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/lookup_table1d/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named lookup_table1d
+# Convenience name for target.
+src/lookup_table1d/CMakeFiles/lookup_table1d.dir/rule:
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/lookup_table1d/CMakeFiles/lookup_table1d.dir/rule
+.PHONY : src/lookup_table1d/CMakeFiles/lookup_table1d.dir/rule
 
-# Build rule for target.
-lookup_table1d: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lookup_table1d
+# Convenience name for target.
+lookup_table1d: src/lookup_table1d/CMakeFiles/lookup_table1d.dir/rule
 .PHONY : lookup_table1d
 
 # fast build rule for target.
 lookup_table1d/fast:
-	$(MAKE) $(MAKESILENT) -f src/lookup_table1d/CMakeFiles/lookup_table1d.dir/build.make src/lookup_table1d/CMakeFiles/lookup_table1d.dir/build
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f src/lookup_table1d/CMakeFiles/lookup_table1d.dir/build.make src/lookup_table1d/CMakeFiles/lookup_table1d.dir/build
 .PHONY : lookup_table1d/fast
 
-#=============================================================================
-# Target rules for targets named lookup_table2d
+lookup_table1d.o: lookup_table1d.cpp.o
+.PHONY : lookup_table1d.o
 
-# Build rule for target.
-lookup_table2d: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lookup_table2d
-.PHONY : lookup_table2d
+# target to build an object file
+lookup_table1d.cpp.o:
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f src/lookup_table1d/CMakeFiles/lookup_table1d.dir/build.make src/lookup_table1d/CMakeFiles/lookup_table1d.dir/lookup_table1d.cpp.o
+.PHONY : lookup_table1d.cpp.o
 
-# fast build rule for target.
-lookup_table2d/fast:
-	$(MAKE) $(MAKESILENT) -f src/lookup_table2d/CMakeFiles/lookup_table2d.dir/build.make src/lookup_table2d/CMakeFiles/lookup_table2d.dir/build
-.PHONY : lookup_table2d/fast
+lookup_table1d.i: lookup_table1d.cpp.i
+.PHONY : lookup_table1d.i
+
+# target to preprocess a source file
+lookup_table1d.cpp.i:
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f src/lookup_table1d/CMakeFiles/lookup_table1d.dir/build.make src/lookup_table1d/CMakeFiles/lookup_table1d.dir/lookup_table1d.cpp.i
+.PHONY : lookup_table1d.cpp.i
+
+lookup_table1d.s: lookup_table1d.cpp.s
+.PHONY : lookup_table1d.s
+
+# target to generate assembly for a file
+lookup_table1d.cpp.s:
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f src/lookup_table1d/CMakeFiles/lookup_table1d.dir/build.make src/lookup_table1d/CMakeFiles/lookup_table1d.dir/lookup_table1d.cpp.s
+.PHONY : lookup_table1d.cpp.s
 
 # Help Target
 help:
@@ -151,7 +163,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... lookup_table1d"
-	@echo "... lookup_table2d"
+	@echo "... lookup_table1d.o"
+	@echo "... lookup_table1d.i"
+	@echo "... lookup_table1d.s"
 .PHONY : help
 
 
@@ -163,6 +177,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/longwang/workspace/InterpTable/interp_table/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

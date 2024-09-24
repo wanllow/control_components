@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/clang++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/longwang/workspace/InterpTable/interp_table/src
+CXX_INCLUDES = -I/home/longwang/workspace/InterpTable/interp_table/src -I/home/longwang/workspace/InterpTable/interp_table/src/lookup_table1d/../dependencies
 
-CXX_FLAGS = -g -std=gnu++14
+CXX_FLAGS = -g -std=c++11
 

@@ -69,36 +69,37 @@ include src/CMakeFiles/interp_table.dir/progress.make
 # Include the compile flags for this target's objects.
 include src/CMakeFiles/interp_table.dir/flags.make
 
-src/CMakeFiles/interp_table.dir/interp_table.cpp.o: src/CMakeFiles/interp_table.dir/flags.make
-src/CMakeFiles/interp_table.dir/interp_table.cpp.o: ../src/interp_table.cpp
-src/CMakeFiles/interp_table.dir/interp_table.cpp.o: src/CMakeFiles/interp_table.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/interp_table.dir/interp_table.cpp.o"
-	cd /home/longwang/workspace/InterpTable/interp_table/build/src && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/interp_table.dir/interp_table.cpp.o -MF CMakeFiles/interp_table.dir/interp_table.cpp.o.d -o CMakeFiles/interp_table.dir/interp_table.cpp.o -c /home/longwang/workspace/InterpTable/interp_table/src/interp_table.cpp
+src/CMakeFiles/interp_table.dir/__/main.cpp.o: src/CMakeFiles/interp_table.dir/flags.make
+src/CMakeFiles/interp_table.dir/__/main.cpp.o: ../main.cpp
+src/CMakeFiles/interp_table.dir/__/main.cpp.o: src/CMakeFiles/interp_table.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/interp_table.dir/__/main.cpp.o"
+	cd /home/longwang/workspace/InterpTable/interp_table/build/src && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/interp_table.dir/__/main.cpp.o -MF CMakeFiles/interp_table.dir/__/main.cpp.o.d -o CMakeFiles/interp_table.dir/__/main.cpp.o -c /home/longwang/workspace/InterpTable/interp_table/main.cpp
 
-src/CMakeFiles/interp_table.dir/interp_table.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/interp_table.dir/interp_table.cpp.i"
-	cd /home/longwang/workspace/InterpTable/interp_table/build/src && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/longwang/workspace/InterpTable/interp_table/src/interp_table.cpp > CMakeFiles/interp_table.dir/interp_table.cpp.i
+src/CMakeFiles/interp_table.dir/__/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/interp_table.dir/__/main.cpp.i"
+	cd /home/longwang/workspace/InterpTable/interp_table/build/src && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/longwang/workspace/InterpTable/interp_table/main.cpp > CMakeFiles/interp_table.dir/__/main.cpp.i
 
-src/CMakeFiles/interp_table.dir/interp_table.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/interp_table.dir/interp_table.cpp.s"
-	cd /home/longwang/workspace/InterpTable/interp_table/build/src && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/longwang/workspace/InterpTable/interp_table/src/interp_table.cpp -o CMakeFiles/interp_table.dir/interp_table.cpp.s
+src/CMakeFiles/interp_table.dir/__/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/interp_table.dir/__/main.cpp.s"
+	cd /home/longwang/workspace/InterpTable/interp_table/build/src && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/longwang/workspace/InterpTable/interp_table/main.cpp -o CMakeFiles/interp_table.dir/__/main.cpp.s
 
 # Object files for target interp_table
 interp_table_OBJECTS = \
-"CMakeFiles/interp_table.dir/interp_table.cpp.o"
+"CMakeFiles/interp_table.dir/__/main.cpp.o"
 
 # External object files for target interp_table
 interp_table_EXTERNAL_OBJECTS =
 
-src/libinterp_table.a: src/CMakeFiles/interp_table.dir/interp_table.cpp.o
-src/libinterp_table.a: src/CMakeFiles/interp_table.dir/build.make
-src/libinterp_table.a: src/CMakeFiles/interp_table.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libinterp_table.a"
-	cd /home/longwang/workspace/InterpTable/interp_table/build/src && $(CMAKE_COMMAND) -P CMakeFiles/interp_table.dir/cmake_clean_target.cmake
+src/interp_table: src/CMakeFiles/interp_table.dir/__/main.cpp.o
+src/interp_table: src/CMakeFiles/interp_table.dir/build.make
+src/interp_table: src/lookup_table1d/liblookup_table1d.a
+src/interp_table: src/lookup_table2d/liblookup_table2d.a
+src/interp_table: src/CMakeFiles/interp_table.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable interp_table"
 	cd /home/longwang/workspace/InterpTable/interp_table/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/interp_table.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-src/CMakeFiles/interp_table.dir/build: src/libinterp_table.a
+src/CMakeFiles/interp_table.dir/build: src/interp_table
 .PHONY : src/CMakeFiles/interp_table.dir/build
 
 src/CMakeFiles/interp_table.dir/clean:

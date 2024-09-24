@@ -631,7 +631,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "2"
+			"value" : "4"
 		},
 		{
 			"name" : "CMAKE_OBJCOPY",
@@ -711,7 +711,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "interp_table"
+			"value" : "LookupTableProject"
 		},
 		{
 			"name" : "CMAKE_PROJECT_VERSION",
@@ -1052,6 +1052,42 @@
 			],
 			"type" : "BOOL",
 			"value" : "FALSE"
+		},
+		{
+			"name" : "LookupTableProject_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/longwang/workspace/InterpTable/interp_table/build"
+		},
+		{
+			"name" : "LookupTableProject_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "LookupTableProject_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/longwang/workspace/InterpTable/interp_table"
 		},
 		{
 			"name" : "interp_table_BINARY_DIR",

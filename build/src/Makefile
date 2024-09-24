@@ -116,44 +116,6 @@ depend:
 	cd /home/longwang/workspace/InterpTable/interp_table/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-# Convenience name for target.
-src/CMakeFiles/interp_table1d.dir/rule:
-	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/interp_table1d.dir/rule
-.PHONY : src/CMakeFiles/interp_table1d.dir/rule
-
-# Convenience name for target.
-interp_table1d: src/CMakeFiles/interp_table1d.dir/rule
-.PHONY : interp_table1d
-
-# fast build rule for target.
-interp_table1d/fast:
-	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/interp_table1d.dir/build.make src/CMakeFiles/interp_table1d.dir/build
-.PHONY : interp_table1d/fast
-
-interp_table1d.o: interp_table1d.cpp.o
-.PHONY : interp_table1d.o
-
-# target to build an object file
-interp_table1d.cpp.o:
-	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/interp_table1d.dir/build.make src/CMakeFiles/interp_table1d.dir/interp_table1d.cpp.o
-.PHONY : interp_table1d.cpp.o
-
-interp_table1d.i: interp_table1d.cpp.i
-.PHONY : interp_table1d.i
-
-# target to preprocess a source file
-interp_table1d.cpp.i:
-	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/interp_table1d.dir/build.make src/CMakeFiles/interp_table1d.dir/interp_table1d.cpp.i
-.PHONY : interp_table1d.cpp.i
-
-interp_table1d.s: interp_table1d.cpp.s
-.PHONY : interp_table1d.s
-
-# target to generate assembly for a file
-interp_table1d.cpp.s:
-	cd /home/longwang/workspace/InterpTable/interp_table/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/interp_table1d.dir/build.make src/CMakeFiles/interp_table1d.dir/interp_table1d.cpp.s
-.PHONY : interp_table1d.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,10 +124,6 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... interp_table1d"
-	@echo "... interp_table1d.o"
-	@echo "... interp_table1d.i"
-	@echo "... interp_table1d.s"
 .PHONY : help
 
 

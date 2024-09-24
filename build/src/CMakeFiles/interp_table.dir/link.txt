@@ -1,2 +1,1 @@
-/usr/bin/ar qc libinterp_table.a CMakeFiles/interp_table.dir/interp_table.cpp.o
-/usr/bin/ranlib libinterp_table.a
+/usr/bin/clang++ -g CMakeFiles/interp_table.dir/__/main.cpp.o -o interp_table  lookup_table1d/liblookup_table1d.a lookup_table2d/liblookup_table2d.a 

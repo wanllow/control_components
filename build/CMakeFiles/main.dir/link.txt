@@ -1,1 +1,1 @@
-/usr/bin/clang++ -g CMakeFiles/main.dir/main.cpp.o -o main  src/libinterp_table1d.a 
+/usr/bin/clang++ -g CMakeFiles/main.dir/main.cpp.o -o main  src/lookup_table1d/liblookup_table1d.a 

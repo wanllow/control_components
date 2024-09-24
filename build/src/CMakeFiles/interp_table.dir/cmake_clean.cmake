@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/interp_table.dir/interp_table.cpp.o"
-  "CMakeFiles/interp_table.dir/interp_table.cpp.o.d"
-  "libinterp_table.a"
-  "libinterp_table.pdb"
+  "CMakeFiles/interp_table.dir/__/main.cpp.o"
+  "CMakeFiles/interp_table.dir/__/main.cpp.o.d"
+  "interp_table"
+  "interp_table.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
