@@ -64,7 +64,7 @@ void LookupTable1D::RefreshTableState()
     }
 }
 
-LookupTable1D::TableState InterpTable1D::CheckTableState(const vector<double> &input_vector1, const vector<double> &input_vector2)
+LookupTable1D::TableState LookupTable1D::CheckTableState(const vector<double> &input_vector1, const vector<double> &input_vector2)
 {
     if (input_vector1.empty() || input_vector2.empty())
     {
