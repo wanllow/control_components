@@ -1,0 +1,1 @@
+/usr/bin/clang++ -g CMakeFiles/LookupTableProject.dir/main.cpp.o -o LookupTableProject  liblookup_table1d.a liblookup_table2d.a 

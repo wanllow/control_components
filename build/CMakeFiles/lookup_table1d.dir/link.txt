@@ -1,0 +1,2 @@
+/usr/bin/ar qc liblookup_table1d.a CMakeFiles/lookup_table1d.dir/src/lookup_table1d/lookup_table1d.cpp.o
+/usr/bin/ranlib liblookup_table1d.a

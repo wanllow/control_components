@@ -1,2 +1,0 @@
-/usr/bin/ar qc libinterp_table1d.a CMakeFiles/interp_table1d.dir/interp_table1d.cpp.o
-/usr/bin/ranlib libinterp_table1d.a

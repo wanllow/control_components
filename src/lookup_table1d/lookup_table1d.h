@@ -1,8 +1,7 @@
 #pragma once
-#include <array>
 #include <vector>
 #include <cmath>
-#include <stdexcept>
+#include <Eigen/Dense>
 #include "lookup_table_dependencies.h"
 
 class LookupTable1D
@@ -14,7 +13,7 @@ private:
 public:
     // Constructors and destructor
     LookupTable1D();
-    LookupTable1D(const std::vector<double> &x_table, const std::vector<double> &y_table);
+    LookupTable1D(const Eigen::VectorXd &x_table, const Eigen::VectorXd &y_table);
     ~LookupTable1D() = default;
 
     // Get table state
@@ -24,7 +23,7 @@ public:
     bool IfWriteSuccess();
 
     // Set and clear the table values
-    void SetTableValue(const std::vector<double> &x_table, const std::vector<double> &y_table);
+    void SetTableValue(const Eigen::VectorXd &x_table, const Eigen::VectorXd &y_table);
     void ClearValue();
 
     // Lookup table based on input, using current search, interp, and extrap methods
@@ -39,23 +38,22 @@ public:
     void SetUpperExtrapValue(const double &value);
 
 private:
-    std::vector<double> x_table_;
-    std::vector<double> y_table_;
+    Eigen::VectorXd x_table_;
+    Eigen::VectorXd y_table_;
     double x_value_ = 0; // restore the input x value for lookup, use if necessary.
     double lookup_result_ = 0;
     std::size_t prelook_index_ = 0;
 
     // Methods for checking tables
     void RefreshTableState();
-    bool isStrictlyIncreasing(const std::vector<double> &input_vector);
-    // bool CheckTableTypes(const vector<double>& input_vector1, const vector<double>& input_vector2);
-    TableState CheckTableState(const std::vector<double> &input_vector1, const std::vector<double> &input_vector2);
+    bool isStrictlyIncreasing(const Eigen::VectorXd &input_vector);
+    TableState CheckTableState(const Eigen::VectorXd &input_vector1, const Eigen::VectorXd &input_vector2);
 
     // Prelookup to find the index of the input value
     std::size_t PreLookup(const double &x_value);
-    std::size_t SearchIndexSequential(const double &value, const std::vector<double> &x_table);
-    std::size_t SearchIndexBinary(const double &value, const std::vector<double> &x_table);
-    std::size_t SearchIndexNear(const double &value, const std::vector<double> &x_table, const std::size_t &last_index);
+    std::size_t SearchIndexSequential(const double &value, const Eigen::VectorXd &x_table);
+    std::size_t SearchIndexBinary(const double &value, const Eigen::VectorXd &x_table);
+    std::size_t SearchIndexNear(const double &value, const Eigen::VectorXd &x_table, const std::size_t &last_index);
 
     // Interpolation between the two closest points
     double Interpolation(const std::size_t &prelookup_index, const double &x_value);

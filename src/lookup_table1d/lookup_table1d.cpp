@@ -2,10 +2,9 @@
 #include <algorithm>
 
 using std::size_t;
-using std::vector;
 // Constructors
 LookupTable1D::LookupTable1D() {}
-LookupTable1D::LookupTable1D(const vector<double> &x_table, const vector<double> &y_table)
+LookupTable1D::LookupTable1D(const Eigen::VectorXd &x_table, const Eigen::VectorXd &y_table)
 {
     SetTableValue(x_table, y_table);
 }
@@ -29,7 +28,7 @@ bool LookupTable1D::IfWriteSuccess()
 }
 
 // Set table values to new input values, validate first then set value in.
-void LookupTable1D::SetTableValue(const vector<double> &x_table, const vector<double> &y_table)
+void LookupTable1D::SetTableValue(const Eigen::VectorXd &x_table, const Eigen::VectorXd &y_table)
 {
     if (CheckTableState(x_table, y_table) == TableState::valid)
     {
@@ -64,9 +63,9 @@ void LookupTable1D::RefreshTableState()
     }
 }
 
-LookupTable1D::TableState LookupTable1D::CheckTableState(const vector<double> &input_vector1, const vector<double> &input_vector2)
+LookupTable1D::TableState LookupTable1D::CheckTableState(const Eigen::VectorXd &input_vector1, const Eigen::VectorXd &input_vector2)
 {
-    if (input_vector1.empty() || input_vector2.empty())
+    if (input_vector1.size() == 0 || input_vector2.size() == 0)
     {
         return TableState::empty;
     }
@@ -88,7 +87,7 @@ LookupTable1D::TableState LookupTable1D::CheckTableState(const vector<double> &i
     }
 }
 
-bool LookupTable1D::isStrictlyIncreasing(const vector<double> &input_vector)
+bool LookupTable1D::isStrictlyIncreasing(const Eigen::VectorXd &input_vector)
 {
     for (size_t index = 1; index < input_vector.size(); ++index)
     {
@@ -114,8 +113,8 @@ void LookupTable1D::SetExtrapMethod(const ExtrapMethod &method)
     extrap_method_ = method;
     if (table_valid_)
     {
-        lower_extrap_value_specify_ = y_table_.front();
-        upper_extrap_value_specify_ = y_table_.back();
+        lower_extrap_value_specify_ = y_table_(0);
+        upper_extrap_value_specify_ = y_table_(y_table_.size() - 1);
     }
 }
 void LookupTable1D::SetExtrapMethod(const ExtrapMethod &method, const double &lower_value, const double &upper_value)
@@ -165,7 +164,7 @@ std::size_t LookupTable1D::PreLookup(const double &x_value)
 }
 
 // Local function: search index using sequential method
-size_t LookupTable1D::SearchIndexSequential(const double &value, const vector<double> &table)
+size_t LookupTable1D::SearchIndexSequential(const double &value, const Eigen::VectorXd &table)
 {
     size_t index = 0;
     for (index = 0; index != table.size(); ++index)
@@ -179,15 +178,15 @@ size_t LookupTable1D::SearchIndexSequential(const double &value, const vector<do
 }
 
 // Local function: search index using binary method
-size_t LookupTable1D::SearchIndexBinary(const double &value, const vector<double> &table)
+size_t LookupTable1D::SearchIndexBinary(const double &value, const Eigen::VectorXd &table)
 {
     // Edge cases: value is out of bound
 
-    if (value <= table.front())
+    if (value <= table(0))
     {
         return 0;
     }
-    else if (value >= table.back())
+    else if (value >= table(table.size() - 1))
     {
         return table.size();
     }
@@ -216,15 +215,15 @@ size_t LookupTable1D::SearchIndexBinary(const double &value, const vector<double
 }
 
 // Local function: search index using last search result
-size_t LookupTable1D::SearchIndexNear(const double &value, const vector<double> &table, const size_t &last_index)
+size_t LookupTable1D::SearchIndexNear(const double &value, const Eigen::VectorXd &table, const size_t &last_index)
 {
     size_t index = last_index;
 
-    if (value <= table.front())
+    if (value <= table(0))
     {
         return 0;
     }
-    else if (value >= table.back())
+    else if (value >= table(table.size() - 1))
     {
         return table.size();
     }
@@ -328,11 +327,11 @@ double LookupTable1D::ExtrapolationClip(const std::size_t &index)
 {
     if (index == 0)
     {
-        return y_table_.front();
+        return y_table_(0);
     }
     else if (index == table_size_)
     {
-        return y_table_.back();
+        return y_table_(y_table_.size() - 1);
     }
     else
     {

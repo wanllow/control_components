@@ -1,7 +1,32 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.5)
+
 project(LookupTableProject CXX)
 
+# Set C++ standard to C++11 (or later if needed)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_subdirectory(src)
+# Find Eigen3
+set(EIGEN3_INCLUDE_DIR "/home/longwang/workspace/eigen-git-mirror")
+include_directories(${EIGEN3_INCLUDE_DIRS})
+
+# Add static libraries
+add_library(lookup_table1d STATIC src/lookup_table1d/lookup_table1d.cpp)
+add_library(lookup_table2d STATIC src/lookup_table2d/lookup_table2d.cpp)
+
+# Add executable
+add_executable(LookupTableProject main.cpp)
+
+# Specify include directories for the target
+target_include_directories(LookupTableProject
+    PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/lookup_table1d
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/lookup_table2d
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/dependencies
+)
+target_link_libraries(LookupTableProject lookup_table1d lookup_table2d)
+
+# Set compiler to clang++
+set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
+
+
