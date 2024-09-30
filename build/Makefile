@@ -117,115 +117,89 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named lookup_table1d
+# Target rules for targets named main
 
 # Build rule for target.
-lookup_table1d: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lookup_table1d
-.PHONY : lookup_table1d
+main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main
+.PHONY : main
 
 # fast build rule for target.
-lookup_table1d/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lookup_table1d.dir/build.make CMakeFiles/lookup_table1d.dir/build
-.PHONY : lookup_table1d/fast
+main/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+.PHONY : main/fast
 
-#=============================================================================
-# Target rules for targets named lookup_table2d
-
-# Build rule for target.
-lookup_table2d: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lookup_table2d
-.PHONY : lookup_table2d
-
-# fast build rule for target.
-lookup_table2d/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lookup_table2d.dir/build.make CMakeFiles/lookup_table2d.dir/build
-.PHONY : lookup_table2d/fast
-
-#=============================================================================
-# Target rules for targets named LookupTableProject
-
-# Build rule for target.
-LookupTableProject: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 LookupTableProject
-.PHONY : LookupTableProject
-
-# fast build rule for target.
-LookupTableProject/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/LookupTableProject.dir/build.make CMakeFiles/LookupTableProject.dir/build
-.PHONY : LookupTableProject/fast
-
-main.o: main.cpp.o
-.PHONY : main.o
+src/lookup_table1d.o: src/lookup_table1d.cpp.o
+.PHONY : src/lookup_table1d.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/LookupTableProject.dir/build.make CMakeFiles/LookupTableProject.dir/main.cpp.o
-.PHONY : main.cpp.o
+src/lookup_table1d.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/lookup_table1d.cpp.o
+.PHONY : src/lookup_table1d.cpp.o
 
-main.i: main.cpp.i
-.PHONY : main.i
+src/lookup_table1d.i: src/lookup_table1d.cpp.i
+.PHONY : src/lookup_table1d.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/LookupTableProject.dir/build.make CMakeFiles/LookupTableProject.dir/main.cpp.i
-.PHONY : main.cpp.i
+src/lookup_table1d.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/lookup_table1d.cpp.i
+.PHONY : src/lookup_table1d.cpp.i
 
-main.s: main.cpp.s
-.PHONY : main.s
+src/lookup_table1d.s: src/lookup_table1d.cpp.s
+.PHONY : src/lookup_table1d.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/LookupTableProject.dir/build.make CMakeFiles/LookupTableProject.dir/main.cpp.s
-.PHONY : main.cpp.s
+src/lookup_table1d.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/lookup_table1d.cpp.s
+.PHONY : src/lookup_table1d.cpp.s
 
-src/lookup_table1d/lookup_table1d.o: src/lookup_table1d/lookup_table1d.cpp.o
-.PHONY : src/lookup_table1d/lookup_table1d.o
+src/lookup_table2d.o: src/lookup_table2d.cpp.o
+.PHONY : src/lookup_table2d.o
 
 # target to build an object file
-src/lookup_table1d/lookup_table1d.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lookup_table1d.dir/build.make CMakeFiles/lookup_table1d.dir/src/lookup_table1d/lookup_table1d.cpp.o
-.PHONY : src/lookup_table1d/lookup_table1d.cpp.o
+src/lookup_table2d.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/lookup_table2d.cpp.o
+.PHONY : src/lookup_table2d.cpp.o
 
-src/lookup_table1d/lookup_table1d.i: src/lookup_table1d/lookup_table1d.cpp.i
-.PHONY : src/lookup_table1d/lookup_table1d.i
+src/lookup_table2d.i: src/lookup_table2d.cpp.i
+.PHONY : src/lookup_table2d.i
 
 # target to preprocess a source file
-src/lookup_table1d/lookup_table1d.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lookup_table1d.dir/build.make CMakeFiles/lookup_table1d.dir/src/lookup_table1d/lookup_table1d.cpp.i
-.PHONY : src/lookup_table1d/lookup_table1d.cpp.i
+src/lookup_table2d.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/lookup_table2d.cpp.i
+.PHONY : src/lookup_table2d.cpp.i
 
-src/lookup_table1d/lookup_table1d.s: src/lookup_table1d/lookup_table1d.cpp.s
-.PHONY : src/lookup_table1d/lookup_table1d.s
+src/lookup_table2d.s: src/lookup_table2d.cpp.s
+.PHONY : src/lookup_table2d.s
 
 # target to generate assembly for a file
-src/lookup_table1d/lookup_table1d.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lookup_table1d.dir/build.make CMakeFiles/lookup_table1d.dir/src/lookup_table1d/lookup_table1d.cpp.s
-.PHONY : src/lookup_table1d/lookup_table1d.cpp.s
+src/lookup_table2d.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/lookup_table2d.cpp.s
+.PHONY : src/lookup_table2d.cpp.s
 
-src/lookup_table2d/lookup_table2d.o: src/lookup_table2d/lookup_table2d.cpp.o
-.PHONY : src/lookup_table2d/lookup_table2d.o
+src/main.o: src/main.cpp.o
+.PHONY : src/main.o
 
 # target to build an object file
-src/lookup_table2d/lookup_table2d.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lookup_table2d.dir/build.make CMakeFiles/lookup_table2d.dir/src/lookup_table2d/lookup_table2d.cpp.o
-.PHONY : src/lookup_table2d/lookup_table2d.cpp.o
+src/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
 
-src/lookup_table2d/lookup_table2d.i: src/lookup_table2d/lookup_table2d.cpp.i
-.PHONY : src/lookup_table2d/lookup_table2d.i
+src/main.i: src/main.cpp.i
+.PHONY : src/main.i
 
 # target to preprocess a source file
-src/lookup_table2d/lookup_table2d.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lookup_table2d.dir/build.make CMakeFiles/lookup_table2d.dir/src/lookup_table2d/lookup_table2d.cpp.i
-.PHONY : src/lookup_table2d/lookup_table2d.cpp.i
+src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
 
-src/lookup_table2d/lookup_table2d.s: src/lookup_table2d/lookup_table2d.cpp.s
-.PHONY : src/lookup_table2d/lookup_table2d.s
+src/main.s: src/main.cpp.s
+.PHONY : src/main.s
 
 # target to generate assembly for a file
-src/lookup_table2d/lookup_table2d.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lookup_table2d.dir/build.make CMakeFiles/lookup_table2d.dir/src/lookup_table2d/lookup_table2d.cpp.s
-.PHONY : src/lookup_table2d/lookup_table2d.cpp.s
+src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
 # Help Target
 help:
@@ -235,18 +209,16 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... LookupTableProject"
-	@echo "... lookup_table1d"
-	@echo "... lookup_table2d"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
-	@echo "... src/lookup_table1d/lookup_table1d.o"
-	@echo "... src/lookup_table1d/lookup_table1d.i"
-	@echo "... src/lookup_table1d/lookup_table1d.s"
-	@echo "... src/lookup_table2d/lookup_table2d.o"
-	@echo "... src/lookup_table2d/lookup_table2d.i"
-	@echo "... src/lookup_table2d/lookup_table2d.s"
+	@echo "... main"
+	@echo "... src/lookup_table1d.o"
+	@echo "... src/lookup_table1d.i"
+	@echo "... src/lookup_table1d.s"
+	@echo "... src/lookup_table2d.o"
+	@echo "... src/lookup_table2d.i"
+	@echo "... src/lookup_table2d.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 .PHONY : help
 
 

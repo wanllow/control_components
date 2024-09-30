@@ -1,5 +1,3 @@
-/home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles/lookup_table1d.dir
-/home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles/lookup_table2d.dir
-/home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles/LookupTableProject.dir
+/home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles/main.dir
 /home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles/edit_cache.dir
 /home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles/rebuild_cache.dir

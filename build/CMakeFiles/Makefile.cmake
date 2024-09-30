@@ -8,8 +8,11 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
   "../CMakeLists.txt"
+  "CMakeFiles/3.22.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.22.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.22.1/CMakeSystem.cmake"
+  "../cmake/third_party_x86.cmake"
+  "/usr/share/cmake-3.22/Modules/CMakeCInformation.cmake"
   "/usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake"
   "/usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake"
@@ -18,10 +21,10 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake"
   "/usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake"
   "/usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
-  "/usr/share/cmake-3.22/Modules/Compiler/Clang-CXX.cmake"
-  "/usr/share/cmake-3.22/Modules/Compiler/Clang.cmake"
+  "/usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake"
+  "/usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake"
   "/usr/share/cmake-3.22/Modules/Compiler/GNU.cmake"
-  "/usr/share/cmake-3.22/Modules/Platform/Linux-Clang-CXX.cmake"
+  "/usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake"
   "/usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake"
   "/usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake"
   "/usr/share/cmake-3.22/Modules/Platform/Linux.cmake"
@@ -41,7 +44,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/lookup_table1d.dir/DependInfo.cmake"
-  "CMakeFiles/lookup_table2d.dir/DependInfo.cmake"
-  "CMakeFiles/LookupTableProject.dir/DependInfo.cmake"
+  "CMakeFiles/main.dir/DependInfo.cmake"
   )

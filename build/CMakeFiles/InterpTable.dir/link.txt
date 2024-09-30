@@ -1,1 +1,0 @@
-/usr/bin/clang++ -g CMakeFiles/InterpTable.dir/main.cpp.o -o InterpTable  -llookup_table1d -llookup_table2d 

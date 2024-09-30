@@ -1,32 +1,17 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(LookupTableProject CXX)
+project(lookup_table)
 
-# Set C++ standard to C++11 (or later if needed)
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/third_party_x86.cmake)
 
-# Find Eigen3
-set(EIGEN3_INCLUDE_DIR "/home/longwang/workspace/eigen-git-mirror")
-include_directories(${EIGEN3_INCLUDE_DIRS})
+file(GLOB_RECURSE HDRS "include/*.h")
 
-# Add static libraries
-add_library(lookup_table1d STATIC src/lookup_table1d/lookup_table1d.cpp)
-add_library(lookup_table2d STATIC src/lookup_table2d/lookup_table2d.cpp)
+file(GLOB_RECURSE SRCS "src/*.cpp")
 
-# Add executable
-add_executable(LookupTableProject main.cpp)
-
-# Specify include directories for the target
-target_include_directories(LookupTableProject
-    PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/lookup_table1d
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/lookup_table2d
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/dependencies
+add_executable(main ${SRCS} ${HDRS})
+target_compile_features(main PUBLIC cxx_std_11)
+target_include_directories(main PUBLIC 
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ${THIRD_PARTY_INCLUDE}
 )
-target_link_libraries(LookupTableProject lookup_table1d lookup_table2d)
-
-# Set compiler to clang++
-set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
-
-
+target_link_libraries(main PUBLIC  ${THIRD_PARTY_LIB})

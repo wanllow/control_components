@@ -63,9 +63,7 @@ CMAKE_BINARY_DIR = /home/longwang/workspace/InterpTable/interp_table/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/lookup_table1d.dir/all
-all: CMakeFiles/lookup_table2d.dir/all
-all: CMakeFiles/LookupTableProject.dir/all
+all: CMakeFiles/main.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -73,89 +71,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/lookup_table1d.dir/clean
-clean: CMakeFiles/lookup_table2d.dir/clean
-clean: CMakeFiles/LookupTableProject.dir/clean
+clean: CMakeFiles/main.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/lookup_table1d.dir
+# Target rules for target CMakeFiles/main.dir
 
 # All Build rule for target.
-CMakeFiles/lookup_table1d.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lookup_table1d.dir/build.make CMakeFiles/lookup_table1d.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lookup_table1d.dir/build.make CMakeFiles/lookup_table1d.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles --progress-num=3,4 "Built target lookup_table1d"
-.PHONY : CMakeFiles/lookup_table1d.dir/all
+CMakeFiles/main.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles --progress-num=1,2,3,4 "Built target main"
+.PHONY : CMakeFiles/main.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/lookup_table1d.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/lookup_table1d.dir/all
+CMakeFiles/main.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles 0
-.PHONY : CMakeFiles/lookup_table1d.dir/rule
+.PHONY : CMakeFiles/main.dir/rule
 
 # Convenience name for target.
-lookup_table1d: CMakeFiles/lookup_table1d.dir/rule
-.PHONY : lookup_table1d
+main: CMakeFiles/main.dir/rule
+.PHONY : main
 
 # clean rule for target.
-CMakeFiles/lookup_table1d.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lookup_table1d.dir/build.make CMakeFiles/lookup_table1d.dir/clean
-.PHONY : CMakeFiles/lookup_table1d.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/lookup_table2d.dir
-
-# All Build rule for target.
-CMakeFiles/lookup_table2d.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lookup_table2d.dir/build.make CMakeFiles/lookup_table2d.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lookup_table2d.dir/build.make CMakeFiles/lookup_table2d.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles --progress-num=5,6 "Built target lookup_table2d"
-.PHONY : CMakeFiles/lookup_table2d.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/lookup_table2d.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/lookup_table2d.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles 0
-.PHONY : CMakeFiles/lookup_table2d.dir/rule
-
-# Convenience name for target.
-lookup_table2d: CMakeFiles/lookup_table2d.dir/rule
-.PHONY : lookup_table2d
-
-# clean rule for target.
-CMakeFiles/lookup_table2d.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lookup_table2d.dir/build.make CMakeFiles/lookup_table2d.dir/clean
-.PHONY : CMakeFiles/lookup_table2d.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/LookupTableProject.dir
-
-# All Build rule for target.
-CMakeFiles/LookupTableProject.dir/all: CMakeFiles/lookup_table1d.dir/all
-CMakeFiles/LookupTableProject.dir/all: CMakeFiles/lookup_table2d.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/LookupTableProject.dir/build.make CMakeFiles/LookupTableProject.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/LookupTableProject.dir/build.make CMakeFiles/LookupTableProject.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles --progress-num=1,2 "Built target LookupTableProject"
-.PHONY : CMakeFiles/LookupTableProject.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/LookupTableProject.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles 6
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/LookupTableProject.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/InterpTable/interp_table/build/CMakeFiles 0
-.PHONY : CMakeFiles/LookupTableProject.dir/rule
-
-# Convenience name for target.
-LookupTableProject: CMakeFiles/LookupTableProject.dir/rule
-.PHONY : LookupTableProject
-
-# clean rule for target.
-CMakeFiles/LookupTableProject.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/LookupTableProject.dir/build.make CMakeFiles/LookupTableProject.dir/clean
-.PHONY : CMakeFiles/LookupTableProject.dir/clean
+CMakeFiles/main.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/clean
+.PHONY : CMakeFiles/main.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
