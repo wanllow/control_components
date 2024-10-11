@@ -1,4 +1,4 @@
-#include "lookup_table1d/lookup_table1d.h"
+#include "lookup_table1d.h"
 #include <algorithm>
 
 using std::size_t;

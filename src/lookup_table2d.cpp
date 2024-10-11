@@ -1,1 +1,1 @@
-#include "lookup_table2d/lookup_table2d.h"
+#include "lookup_table2d.h"

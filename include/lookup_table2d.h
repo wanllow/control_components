@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <Eigen/Dense>
-#include "dependencies/lookup_table_dependencies.h"
+#include "lookup_table_dependencies.h"
 
 
 

@@ -1,2 +1,0 @@
-add_library(lookup_table2d lookup_table2d.cpp)
-target_include_directories(lookup_table2d PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

@@ -2,7 +2,7 @@
 #include <vector>
 #include <cmath>
 #include <Eigen/Dense>
-#include "dependencies/lookup_table_dependencies.h"
+#include "lookup_table_dependencies.h"
 
 class LookupTable1D
 {
