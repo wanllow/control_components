@@ -1,17 +1,17 @@
 [
 {
-  "directory": "/home/longwang/workspace/InterpTable/interp_table/build",
-  "command": "/usr/bin/c++ -DEIGEN_STACK_ALLOCATION_LIMIT=4194304 -I/home/longwang/workspace/InterpTable/interp_table/include -I/home/longwang/workspace/InterpTable/interp_table/third_party/eigen-3.4.0 -I/home/longwang/workspace/InterpTable/interp_table/third_party/eigen-3.4.0/include/eigen3 -g -o CMakeFiles/main.dir/src/lookup_table1d.cpp.o -c /home/longwang/workspace/InterpTable/interp_table/src/lookup_table1d.cpp",
-  "file": "/home/longwang/workspace/InterpTable/interp_table/src/lookup_table1d.cpp"
+  "directory": "/home/longwang/workspace/lookup_table/build",
+  "command": "/usr/bin/g++ -DEIGEN_STACK_ALLOCATION_LIMIT=4194304 -I/home/longwang/workspace/lookup_table/include -I/home/longwang/workspace/InterpTable/interp_table/third_party/eigen-3.4.0 -I/home/longwang/workspace/InterpTable/interp_table/third_party/eigen-3.4.0/include/eigen3 -g -o CMakeFiles/main.dir/src/lookup_table1d.cpp.o -c /home/longwang/workspace/lookup_table/src/lookup_table1d.cpp",
+  "file": "/home/longwang/workspace/lookup_table/src/lookup_table1d.cpp"
 },
 {
-  "directory": "/home/longwang/workspace/InterpTable/interp_table/build",
-  "command": "/usr/bin/c++ -DEIGEN_STACK_ALLOCATION_LIMIT=4194304 -I/home/longwang/workspace/InterpTable/interp_table/include -I/home/longwang/workspace/InterpTable/interp_table/third_party/eigen-3.4.0 -I/home/longwang/workspace/InterpTable/interp_table/third_party/eigen-3.4.0/include/eigen3 -g -o CMakeFiles/main.dir/src/lookup_table2d.cpp.o -c /home/longwang/workspace/InterpTable/interp_table/src/lookup_table2d.cpp",
-  "file": "/home/longwang/workspace/InterpTable/interp_table/src/lookup_table2d.cpp"
+  "directory": "/home/longwang/workspace/lookup_table/build",
+  "command": "/usr/bin/g++ -DEIGEN_STACK_ALLOCATION_LIMIT=4194304 -I/home/longwang/workspace/lookup_table/include -I/home/longwang/workspace/InterpTable/interp_table/third_party/eigen-3.4.0 -I/home/longwang/workspace/InterpTable/interp_table/third_party/eigen-3.4.0/include/eigen3 -g -o CMakeFiles/main.dir/src/lookup_table2d.cpp.o -c /home/longwang/workspace/lookup_table/src/lookup_table2d.cpp",
+  "file": "/home/longwang/workspace/lookup_table/src/lookup_table2d.cpp"
 },
 {
-  "directory": "/home/longwang/workspace/InterpTable/interp_table/build",
-  "command": "/usr/bin/c++ -DEIGEN_STACK_ALLOCATION_LIMIT=4194304 -I/home/longwang/workspace/InterpTable/interp_table/include -I/home/longwang/workspace/InterpTable/interp_table/third_party/eigen-3.4.0 -I/home/longwang/workspace/InterpTable/interp_table/third_party/eigen-3.4.0/include/eigen3 -g -o CMakeFiles/main.dir/src/main.cpp.o -c /home/longwang/workspace/InterpTable/interp_table/src/main.cpp",
-  "file": "/home/longwang/workspace/InterpTable/interp_table/src/main.cpp"
+  "directory": "/home/longwang/workspace/lookup_table/build",
+  "command": "/usr/bin/g++ -DEIGEN_STACK_ALLOCATION_LIMIT=4194304 -I/home/longwang/workspace/lookup_table/include -I/home/longwang/workspace/InterpTable/interp_table/third_party/eigen-3.4.0 -I/home/longwang/workspace/InterpTable/interp_table/third_party/eigen-3.4.0/include/eigen3 -g -o CMakeFiles/main.dir/src/main.cpp.o -c /home/longwang/workspace/lookup_table/src/main.cpp",
+  "file": "/home/longwang/workspace/lookup_table/src/main.cpp"
 }
 ]

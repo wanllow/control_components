@@ -1,4 +1,4 @@
-# Install script for directory: /home/longwang/workspace/InterpTable/interp_table
+# Install script for directory: /home/longwang/workspace/lookup_table
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/longwang/workspace/InterpTable/interp_table/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/longwang/workspace/lookup_table/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

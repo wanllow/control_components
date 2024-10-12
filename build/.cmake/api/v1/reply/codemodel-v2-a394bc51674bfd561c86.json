@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "main::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-main-Debug-42e9e433d9cb4a4d0990.json",
+					"jsonFile" : "target-main-Debug-b520fd2c01267716ae42.json",
 					"name" : "main",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/longwang/workspace/InterpTable/interp_table/build",
-		"source" : "/home/longwang/workspace/InterpTable/interp_table"
+		"build" : "/home/longwang/workspace/lookup_table/build",
+		"source" : "/home/longwang/workspace/lookup_table"
 	},
 	"version" : 
 	{

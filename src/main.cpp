@@ -17,8 +17,8 @@ int main()
     y_table << 2, 5, 7, 3, 6;  
 	LookupTable1D test_table_1d(x_table, y_table);
 	test_table_1d.SetInterpMethod(InterpMethod::linear);
-	test_table_1d.SetExtrapMethod(ExtrapMethod::specify);
+	test_table_1d.SetExtrapMethod(ExtrapMethod::clip);
 	std::cout << "The result is: ";
-	std::cout << test_table_1d.LookupTable(1) << std::endl;
+	std::cout << test_table_1d.LookupTable(2.5) << std::endl;
 	return 0;
 }
