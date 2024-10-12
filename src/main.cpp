@@ -19,6 +19,6 @@ int main()
 	test_table_1d.SetInterpMethod(InterpMethod::linear);
 	test_table_1d.SetExtrapMethod(ExtrapMethod::clip);
 	std::cout << "The result is: ";
-	std::cout << test_table_1d.LookupTable(2.5) << std::endl;
+	std::cout << test_table_1d.LookupTable(0.99) << std::endl;
 	return 0;
 }
