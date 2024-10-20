@@ -1,49 +1,35 @@
 #include "lookup_table1d.h"
 #include <algorithm>
+#include <limits>
 
 using std::size_t;
-// Constructors
-LookupTable1D::LookupTable1D() {}
-LookupTable1D::LookupTable1D(const Eigen::VectorXd &x_table, const Eigen::VectorXd &y_table)
-{
-    SetTableValue(x_table, y_table);
-}
-
-// Get table members
-size_t LookupTable1D::size()
-{
-    return table_size_;
-}
-bool LookupTable1D::valid()
-{
-    return table_valid_;
-}
-bool LookupTable1D::empty()
-{
-    return table_empty_;
-}
-bool LookupTable1D::IfWriteSuccess()
-{
-    return set_value_success_;
-}
 
 // Set table values to new input values, validate first then set value in.
-void LookupTable1D::SetTableValue(const Eigen::VectorXd &x_table, const Eigen::VectorXd &y_table)
+void LookupTable1D::SetTable(const Eigen::RowVectorXd &x_table, const Eigen::RowVectorXd &y_table)
 {
     if (CheckTableState(x_table, y_table) == TableState::valid)
     {
         x_table_ = x_table;
         y_table_ = y_table;
-        set_value_success_ = true;
         RefreshTableState();
     }
     else
     {
         // if the input value is invalid, check the current table value to set the table_state flag
-        // and reset the set_value_success_ flag to indicate a failed SetTableValue has been executed.
         table_valid_ = (CheckTableState(x_table_, y_table_) == TableState::valid);
-        set_value_success_ = false;
     }
+}
+void LookupTable1D::SetTable(const std::vector<double> &x_vec, const std::vector<double> &y_vec)
+{
+    Eigen::RowVectorXd x_table = Eigen::Map<const Eigen::RowVectorXd>(x_vec.data(), x_vec.size());
+    Eigen::RowVectorXd y_table = Eigen::Map<const Eigen::RowVectorXd>(y_vec.data(), y_vec.size());
+    SetTable(x_table, y_table);
+}
+
+void LookupTable1D::ClearTable()
+{
+    x_table_.resize(0);
+    y_table_.resize(0);
 }
 
 void LookupTable1D::RefreshTableState()
@@ -63,7 +49,7 @@ void LookupTable1D::RefreshTableState()
     }
 }
 
-LookupTable1D::TableState LookupTable1D::CheckTableState(const Eigen::VectorXd &input_vector1, const Eigen::VectorXd &input_vector2)
+LookupTable1D::TableState LookupTable1D::CheckTableState(const Eigen::RowVectorXd &input_vector1, const Eigen::RowVectorXd &input_vector2)
 {
     if (input_vector1.size() == 0 || input_vector2.size() == 0)
     {
@@ -71,27 +57,27 @@ LookupTable1D::TableState LookupTable1D::CheckTableState(const Eigen::VectorXd &
     }
     else if (input_vector1.size() > max_table_size_ || input_vector1.size() < 2)
     {
-        return TableState::size_invalid;    // x table size must be within the range of [2 max_table_size]
+        return TableState::size_invalid; // x table size must be within the range of [2 max_table_size]
     }
     else if (input_vector1.size() != input_vector2.size())
     {
-        return TableState::size_not_match;  // y table size must be equal to x table size
+        return TableState::size_not_match; // y table size must be equal to x table size
     }
     else if (!isStrictlyIncreasing(input_vector1))
     {
-        return TableState::x_not_increase;  // x table data must be strictly increasing
+        return TableState::x_not_increase; // x table data must be strictly increasing
     }
     else
     {
-        return TableState::valid;           // valid data for assignment
+        return TableState::valid; // valid data for assignment
     }
 }
 
-bool LookupTable1D::isStrictlyIncreasing(const Eigen::VectorXd &input_vector)
+bool LookupTable1D::isStrictlyIncreasing(const Eigen::RowVectorXd &input_vector)
 {
     for (size_t index = 1; index < input_vector.size(); ++index)
     {
-        if (input_vector[index - 1] >= input_vector[index])
+        if (input_vector[index] - input_vector[index - 1] < epsilon_)
         {
             return false;
         }
@@ -100,14 +86,6 @@ bool LookupTable1D::isStrictlyIncreasing(const Eigen::VectorXd &input_vector)
 }
 
 // Configurations of lookup methods
-void LookupTable1D::SetSearchMethod(const SearchMethod &method)
-{
-    search_method_ = method;
-}
-void LookupTable1D::SetInterpMethod(const InterpMethod &method)
-{
-    interp_method_ = method;
-}
 void LookupTable1D::SetExtrapMethod(const ExtrapMethod &method)
 {
     extrap_method_ = method;
@@ -122,14 +100,6 @@ void LookupTable1D::SetExtrapMethod(const ExtrapMethod &method, const double &lo
     extrap_method_ = method;
     lower_extrap_value_specify_ = lower_value;
     upper_extrap_value_specify_ = upper_value;
-}
-void LookupTable1D::SetLowerExtrapValue(const double &value)
-{
-    lower_extrap_value_specify_ = value;
-}
-void LookupTable1D::SetUpperExtrapValue(const double &value)
-{
-    upper_extrap_value_specify_ = value;
 }
 
 std::size_t LookupTable1D::PreLookup(const double &x_value)
@@ -164,7 +134,7 @@ std::size_t LookupTable1D::PreLookup(const double &x_value)
 }
 
 // Local function: search index using sequential method
-size_t LookupTable1D::SearchIndexSequential(const double &value, const Eigen::VectorXd &table)
+size_t LookupTable1D::SearchIndexSequential(const double &value, const Eigen::RowVectorXd &table)
 {
     size_t index = 0;
     for (index = 0; index != table.size(); ++index)
@@ -178,7 +148,7 @@ size_t LookupTable1D::SearchIndexSequential(const double &value, const Eigen::Ve
 }
 
 // Local function: search index using binary method
-size_t LookupTable1D::SearchIndexBinary(const double &value, const Eigen::VectorXd &table)
+size_t LookupTable1D::SearchIndexBinary(const double &value, const Eigen::RowVectorXd &table)
 {
     // Edge cases: value is out of bound
 
@@ -198,11 +168,7 @@ size_t LookupTable1D::SearchIndexBinary(const double &value, const Eigen::Vector
     {
         size_t mid = left + (right - left) / 2; // Avoid overflow with safer midpoint calculation
 
-        if (value == table[mid])
-        {
-            return mid; // Exact match found
-        }
-        else if (value < table[mid])
+        if (value <= table(mid))
         {
             right = mid; // Narrow down to the left half
         }
@@ -215,7 +181,7 @@ size_t LookupTable1D::SearchIndexBinary(const double &value, const Eigen::Vector
 }
 
 // Local function: search index using last search result
-size_t LookupTable1D::SearchIndexNear(const double &value, const Eigen::VectorXd &table, const size_t &last_index)
+size_t LookupTable1D::SearchIndexNear(const double &value, const Eigen::RowVectorXd &table, const size_t &last_index)
 {
     size_t index = last_index;
 
@@ -288,8 +254,8 @@ double LookupTable1D::InterpolationLinear(const std::size_t &index, const double
     double y2 = y_table_[index];
 
     // Calculate the weight for linear interpolation
-    double delta_x = x2 - x1;
-    double weight = (delta_x == 0) ? 0.5 : (x_value - x1) / delta_x;
+    bool equal_zero = std::abs(x2 - x1) < epsilon_;
+    double weight = equal_zero ? 0.5 : (x_value - x1) / (x2 - x1);
 
     // Linearly interpolate the y value based on the weight
     return y1 + weight * (y2 - y1);
@@ -348,8 +314,8 @@ double LookupTable1D::ExtrapolationLinear(const std::size_t &index, const double
         double y2 = y_table_[1];
 
         // Calculate the weight for linear extrapolation
-        double delta_x = x2 - x1;
-        double weight = (delta_x == 0) ? 0.5 : (x_value - x1) / delta_x;
+        bool equal_zero = std::abs(x2 - x1) < epsilon_;
+        double weight = equal_zero ? 0.5 : (x_value - x1) / (x2 - x1);
 
         // Linearly extrapolate the y value based on the weight
         return y1 + weight * (y2 - y1);
@@ -362,8 +328,8 @@ double LookupTable1D::ExtrapolationLinear(const std::size_t &index, const double
         double y2 = y_table_[table_size_ - 1];
 
         // Calculate the weight for linear extrapolation
-        double delta_x = x2 - x1;
-        double weight = (delta_x == 0) ? 0.5 : (x_value - x1) / delta_x;
+        bool equal_zero = std::abs(x2 - x1) < epsilon_;
+        double weight = equal_zero ? 0.5 : (x_value - x1) / (x2 - x1);
 
         // Linearly extrapolate the y value based on the weight
         return y1 + weight * (y2 - y1);

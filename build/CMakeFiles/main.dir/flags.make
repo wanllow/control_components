@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/g++
 CXX_DEFINES = -DEIGEN_STACK_ALLOCATION_LIMIT=4194304
 
-CXX_INCLUDES = -I/home/longwang/workspace/lookup_table/include -I/home/longwang/workspace/InterpTable/interp_table/third_party/eigen-3.4.0 -I/home/longwang/workspace/InterpTable/interp_table/third_party/eigen-3.4.0/include/eigen3
+CXX_INCLUDES = -I/home/longwang/workspace/lookup_table/include -I/home/longwang/workspace/lookup_table/third_party/eigen-3.4.0 -I/home/longwang/workspace/lookup_table/third_party/eigen-3.4.0/include/eigen3
 
 CXX_FLAGS = -g
 

@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include <Eigen/Dense>
+// #include <Eigen/Dense>
 #include "lookup_table_dependencies.h"
 
 
@@ -12,5 +12,5 @@ class LookupTable2D
 
     public:
     LookupTable2D();
-    LookupTable2D(const Eigen::VectorXd r_axis, const Eigen::VectorXd c_axis, const Eigen::VectorXd );
+    // LookupTable2D(const Eigen::VectorXd r_axis, const Eigen::VectorXd c_axis, const Eigen::VectorXd );
 };

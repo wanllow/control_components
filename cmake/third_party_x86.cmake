@@ -1,5 +1,5 @@
 # 第三方库路径
-set(THIRD_PARTY_PATH /home/longwang/workspace/InterpTable/interp_table/third_party)
+set(THIRD_PARTY_PATH "${PROJECT_SOURCE_DIR}/third_party")
 
 # # asio库
 # add_library(asio INTERFACE)

@@ -60,7 +60,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/longwang/workspace/lookup_table
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/longwang/workspace/lookup_table/build
+CMAKE_BINARY_DIR = /home/longwang/workspace/lookup_table
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/lookup_table/build/CMakeFiles /home/longwang/workspace/lookup_table/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/lookup_table/CMakeFiles /home/longwang/workspace/lookup_table//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/lookup_table/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/lookup_table/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -128,30 +128,6 @@ main: cmake_check_build_system
 main/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
-
-src/lookup_table.o: src/lookup_table.cpp.o
-.PHONY : src/lookup_table.o
-
-# target to build an object file
-src/lookup_table.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/lookup_table.cpp.o
-.PHONY : src/lookup_table.cpp.o
-
-src/lookup_table.i: src/lookup_table.cpp.i
-.PHONY : src/lookup_table.i
-
-# target to preprocess a source file
-src/lookup_table.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/lookup_table.cpp.i
-.PHONY : src/lookup_table.cpp.i
-
-src/lookup_table.s: src/lookup_table.cpp.s
-.PHONY : src/lookup_table.s
-
-# target to generate assembly for a file
-src/lookup_table.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/lookup_table.cpp.s
-.PHONY : src/lookup_table.cpp.s
 
 src/lookup_table1d.o: src/lookup_table1d.cpp.o
 .PHONY : src/lookup_table1d.o
@@ -234,9 +210,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... main"
-	@echo "... src/lookup_table.o"
-	@echo "... src/lookup_table.i"
-	@echo "... src/lookup_table.s"
 	@echo "... src/lookup_table1d.o"
 	@echo "... src/lookup_table1d.i"
 	@echo "... src/lookup_table1d.s"
