@@ -30,12 +30,19 @@ public:
         specify = 2 // user specify the values
     };
 
+    enum class SetState
+    {
+        fail = 0,   // new value not set, old value invalid
+        remain = 1, // new value not set, old value valid
+        success = 2 // new value set successfully
+    };
+
 
     // Constructors and destructors
     LookupTable() = default;
     virtual ~LookupTable() = default;
 
-    // Common methods for table management
+    // Get present state
     bool valid() const { return table_valid_; }
     bool empty() const { return table_empty_; }
 
@@ -46,7 +53,7 @@ public:
     void SetEpsilon(const double &epsilon) { epsilon_ = epsilon > 0 ? epsilon : epsilon_; }
 
     // virtual void SetTable() = 0;   // SetTable without any input parameter, it's complete virtual function
-    virtual void ClearTable() = 0; // ClearTable may be different for 1dTable and 2dTable
+    virtual bool ClearTable() = 0; // ClearTable may be different for 1dTable and 2dTable
 
     // Three main search index functions
     std::size_t SearchIndex(const double &value, const Eigen::RowVectorXd &table, const SearchMethod &method, const std::size_t &last_index = 1);
@@ -64,5 +71,9 @@ protected:
     InterpMethod interp_method_ = InterpMethod::linear;
     ExtrapMethod extrap_method_ = ExtrapMethod::clip;
 
+    // important threthold
     double epsilon_ = std::numeric_limits<double>::epsilon();
+    const std::size_t max_table_size_ = 1000000U; // do not exceed 1M, uint32_t can support up to 4294967295U.
+
+    bool isStrictlyIncreasing(const Eigen::RowVectorXd &input_vector);
 };

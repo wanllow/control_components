@@ -5,31 +5,37 @@
 using std::size_t;
 
 // Set table values to new input values, validate first then set value in.
-void LookupTable1D::SetTable(const Eigen::RowVectorXd &x_table, const Eigen::RowVectorXd &y_table)
+LookupTable::SetState LookupTable1D::SetTable(const Eigen::RowVectorXd &x_table, const Eigen::RowVectorXd &y_table)
 {
     if (CheckTableState(x_table, y_table) == TableState::valid)
     {
         x_table_ = x_table;
         y_table_ = y_table;
         RefreshTableState();
+        return SetState::success;
     }
     else
     {
         // if the input value is invalid, check the current table value to set the table_state flag
         table_valid_ = (CheckTableState(x_table_, y_table_) == TableState::valid);
+        return table_valid_? SetState::remain : SetState::fail;
     }
 }
-void LookupTable1D::SetTable(const std::vector<double> &x_vec, const std::vector<double> &y_vec)
+LookupTable::SetState LookupTable1D::SetTable(const std::vector<double> &x_vec, const std::vector<double> &y_vec)
 {
+    // this is vector edition, first convert then call the base SetTable function.
     Eigen::RowVectorXd x_table = Eigen::Map<const Eigen::RowVectorXd>(x_vec.data(), x_vec.size());
     Eigen::RowVectorXd y_table = Eigen::Map<const Eigen::RowVectorXd>(y_vec.data(), y_vec.size());
-    SetTable(x_table, y_table);
+    return SetTable(x_table, y_table);
 }
 
-void LookupTable1D::ClearTable()
+bool LookupTable1D::ClearTable()
 {
     x_table_.resize(0);
     y_table_.resize(0);
+    table_empty_ = true;
+    table_size_ = 0;
+    return true;
 }
 
 void LookupTable1D::RefreshTableState()
@@ -37,15 +43,12 @@ void LookupTable1D::RefreshTableState()
     table_valid_ = (CheckTableState(x_table_, y_table_) == TableState::valid);
     if (table_valid_)
     {
-        table_valid_ = true;
         table_empty_ = false;
         table_size_ = x_table_.size();
     }
-    else
+    else if(!table_empty_)
     {
-        table_valid_ = false;
-        table_empty_ = true;
-        table_size_ = 0;
+        bool cleared = ClearTable();    // clear the table if invalid but not empty
     }
 }
 
@@ -73,17 +76,6 @@ LookupTable1D::TableState LookupTable1D::CheckTableState(const Eigen::RowVectorX
     }
 }
 
-bool LookupTable1D::isStrictlyIncreasing(const Eigen::RowVectorXd &input_vector)
-{
-    for (size_t index = 1; index < input_vector.size(); ++index)
-    {
-        if (input_vector[index] - input_vector[index - 1] < epsilon_)
-        {
-            return false;
-        }
-    }
-    return true;
-}
 
 // Configurations of lookup methods
 void LookupTable1D::SetExtrapMethod(const ExtrapMethod &method)
@@ -102,125 +94,19 @@ void LookupTable1D::SetExtrapMethod(const ExtrapMethod &method, const double &lo
     upper_extrap_value_specify_ = upper_value;
 }
 
+// Prelook
 std::size_t LookupTable1D::PreLookup(const double &x_value)
 {
-    size_t prelook_index = 0;
-    switch (search_method_)
+    size_t prelook_index = SearchIndex(x_value, x_table_, search_method_, prelook_index_);
+    if (prelook_index >= 0 && prelook_index <= x_table_.size()) // valid prelookup
     {
-    case SearchMethod::seq:
+        prelook_index_ = prelook_index; // store value
+    }
+    else
     {
-        prelook_index = SearchIndexSequential(x_value, x_table_); // Sequential search
-        break;
+        prelook_index = prelook_index_; // keep last value for invalid prelookup
     }
-
-    case SearchMethod::bin:
-    {
-        prelook_index = SearchIndexBinary(x_value, x_table_); // Binary search
-        break;
-    }
-
-    case SearchMethod::near:
-    {
-        prelook_index = SearchIndexNear(x_value, x_table_, lookup_result_); // Search based on last index
-        break;
-    }
-
-    default:
-        prelook_index = prelook_index_; // return the last value if failure occured.
-        RefreshTableState();
-    }
-
     return prelook_index;
-}
-
-// Local function: search index using sequential method
-size_t LookupTable1D::SearchIndexSequential(const double &value, const Eigen::RowVectorXd &table)
-{
-    size_t index = 0;
-    for (index = 0; index != table.size(); ++index)
-    {
-        if (value <= table[index])
-        {
-            break;
-        }
-    }
-    return index;
-}
-
-// Local function: search index using binary method
-size_t LookupTable1D::SearchIndexBinary(const double &value, const Eigen::RowVectorXd &table)
-{
-    // Edge cases: value is out of bound
-
-    if (value <= table(0))
-    {
-        return 0;
-    }
-    else if (value >= table(table.size() - 1))
-    {
-        return table.size();
-    }
-
-    size_t left = 0;
-    size_t right = table.size() - 1;
-
-    while (left < right)
-    {
-        size_t mid = left + (right - left) / 2; // Avoid overflow with safer midpoint calculation
-
-        if (value <= table(mid))
-        {
-            right = mid; // Narrow down to the left half
-        }
-        else
-        {
-            left = mid + 1; // Narrow down to the right half
-        }
-    }
-    return left;
-}
-
-// Local function: search index using last search result
-size_t LookupTable1D::SearchIndexNear(const double &value, const Eigen::RowVectorXd &table, const size_t &last_index)
-{
-    size_t index = last_index;
-
-    if (value <= table(0))
-    {
-        return 0;
-    }
-    else if (value >= table(table.size() - 1))
-    {
-        return table.size();
-    }
-
-    // Search backward if the previous value is table.size()
-    if (last_index == table.size())
-    {
-        while (value < table[index - 1])
-        {
-            --index;
-        }
-        return index;
-    }
-
-    // Search forward if the new value is larger than the previous value
-    if (value >= table[index])
-    {
-        while (index < table.size() && value > table[index])
-        {
-            ++index;
-        }
-    }
-    // Search backward if the new value is smaller than the previous value
-    else if (value <= table[index - 1])
-    {
-        while (index > 0 && value < table[index - 1])
-        {
-            --index;
-        }
-    }
-    return index;
 }
 
 // Interpolation between the two closest points

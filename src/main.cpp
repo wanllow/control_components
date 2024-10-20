@@ -20,7 +20,7 @@ int main()
 	test_table_1d.SetInterpMethod(LookupTable::InterpMethod::linear);
 	test_table_1d.SetExtrapMethod(LookupTable::ExtrapMethod::clip);
 	std::cout << "The result is: ";
-	std::cout << test_table_1d.LookupTable(2.111) << std::endl;
+	std::cout << test_table_1d.LookupTable(8) << std::endl;
 	// std::cout << test_table_1d.SearchIndex(0.5, x_table, LookupTable::SearchMethod::near, 5.1) << std::endl;
 	return 0;
 }

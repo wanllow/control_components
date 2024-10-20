@@ -2,12 +2,11 @@
 
 std::size_t LookupTable::SearchIndex(const double &value, const Eigen::RowVectorXd &table, const SearchMethod &method, const std::size_t &last_index)
 {
-    std::size_t index = last_index;
     switch (method)
     {
     case SearchMethod::seq:
     {
-        size_t index = 0;
+        std::size_t index = 0;
         for (index = 0; index != table.size(); ++index)
         {
             if (value <= table[index])
@@ -30,12 +29,12 @@ std::size_t LookupTable::SearchIndex(const double &value, const Eigen::RowVector
             return table.size();
         }
 
-        size_t left = 0;
-        size_t right = table.size() - 1;
+        std::size_t left = 0;
+        std::size_t right = table.size() - 1;
 
         while (left < right)
         {
-            size_t mid = left + (right - left) / 2; // Avoid overflow with safer midpoint calculation
+            std::size_t mid = left + (right - left) / 2; // Avoid overflow with safer midpoint calculation
 
             if (value <= table(mid))
             {
@@ -93,4 +92,16 @@ std::size_t LookupTable::SearchIndex(const double &value, const Eigen::RowVector
         return -1;
     }
     }
+}
+
+bool LookupTable::isStrictlyIncreasing(const Eigen::RowVectorXd &input_vector)
+{
+    for (size_t index = 1; index < input_vector.size(); ++index)
+    {
+        if (input_vector[index] - input_vector[index - 1] < epsilon_)
+        {
+            return false;
+        }
+    }
+    return true;
 }
