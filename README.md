@@ -1,4 +1,4 @@
-# interp_table
+# lookup_table
 
 classes include table and interpolation method for control and model purposes.
 
@@ -14,6 +14,10 @@ key function: lookup table functions
 ## class LookupTable2D
 
 this class is created to handle the interpolation and extrapolation issues of two-dimensional tables.
+
+key member: x_table_ y_table_ z_map_
+
+key function: lookup table functions
 
 
 

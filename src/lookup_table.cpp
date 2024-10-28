@@ -89,7 +89,7 @@ std::size_t LookupTable::SearchIndex(const double &value, const Eigen::RowVector
     }
     default:
     {
-        return -1;
+        return last_index;
     }
     }
 }
@@ -104,4 +104,12 @@ bool LookupTable::isStrictlyIncreasing(const Eigen::RowVectorXd &input_vector)
         }
     }
     return true;
+}
+
+
+bool LookupTable::ReportError()
+{
+    /* This function depends on the system, finish it as soon as possible */
+    return table_valid_;
+    /* End of this function */
 }

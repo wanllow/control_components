@@ -8,28 +8,19 @@
 class LookupTable1D : public LookupTable
 {
 public:
-    enum class TableState
-    {
-        empty = 0,          // empty table
-        size_not_match = 1, // sizes of x_table and y_table not match
-        size_invalid = 2,   // table size exceeds limit
-        x_not_increase = 3, // x table is not strictly increasing
-        valid = 4           // valid state
-    };
-
     // Constructors and destructor, set_state is left for debugging
     LookupTable1D() = default;
-    LookupTable1D(const Eigen::RowVectorXd &x_table, const Eigen::RowVectorXd &y_table) { SetState set_state = SetTable(x_table, y_table); }
-    LookupTable1D(const std::vector<double> &x_vec, const std::vector<double> &y_vec) { SetState set_state = SetTable(x_vec, y_vec); }
+    LookupTable1D(const std::size_t &size) : x_axis_{Eigen::RowVectorXd::LinSpaced(size,1,size)}, y_table_{Eigen::RowVectorXd::Zero(size)} {}
+    LookupTable1D(const Eigen::RowVectorXd &x_axis, const Eigen::RowVectorXd &y_table) { AssignmentState assigned = AssignTableData(x_axis, y_table); }
+    LookupTable1D(const std::vector<double> &x_vec, const std::vector<double> &y_vec) { AssignmentState assigned = AssignTableData(x_vec, y_vec); }
     ~LookupTable1D() = default;
 
     // Get table state
     std::size_t size() const { return table_size_; }
-    TableState state() const { return table_state_; }
 
     // Set and clear the table values
-    SetState SetTable(const Eigen::RowVectorXd &x_table, const Eigen::RowVectorXd &y_table);
-    SetState SetTable(const std::vector<double> &x_vec, const std::vector<double> &y_vec);
+    AssignmentState AssignTableData(const Eigen::RowVectorXd &x_axis, const Eigen::RowVectorXd &y_table);
+    AssignmentState AssignTableData(const std::vector<double> &x_vec, const std::vector<double> &y_vec);
     bool ClearTable() override;
 
     // Lookup table based on input, using current search, interp, and extrap methods
@@ -42,14 +33,19 @@ public:
     void SetUpperExtrapValue(const double &value) { upper_extrap_value_specify_ = value; }
 
 private:
-    Eigen::RowVectorXd x_table_;
+    // Core members
+    Eigen::RowVectorXd x_axis_;
     Eigen::RowVectorXd y_table_;
-    double x_value_ = 0; // restore the input x value for lookup, use if necessary.
-    double lookup_result_ = 0;
-    std::size_t prelook_index_ = 0;
+    double x_value_ = 0;            // restore the input x value for lookup, use if necessary.
+    double lookup_result_ = 0;      // restore output value.
+    std::size_t prelook_index_ = 0; // restore prelook index value.
+    // Other parameters
+    std::size_t table_size_ = 0U; // length of table
+    double lower_extrap_value_specify_ = 0; // user specified value for out of boundary look up
+    double upper_extrap_value_specify_ = 0; // user specified value for out of boundary look up
 
     // Methods for checking tables
-    void RefreshTableState();
+    bool RefreshTableState();
     TableState CheckTableState(const Eigen::RowVectorXd &input_vector1, const Eigen::RowVectorXd &input_vector2);
 
     // Prelookup to find the index of the input value
@@ -67,10 +63,4 @@ private:
     double ExtrapolationClip(const std::size_t &prelookup_index);
     double ExtrapolationLinear(const std::size_t &prelookup_index, const double &x_value);
     double ExtrapolationSpecify(const std::size_t &prelookup_index, const double &lower_extrap_value, const double &upper_extrap_value);
-
-    // Other parameters
-    std::size_t table_size_ = 0U; // length of table
-    TableState table_state_ = TableState::empty;
-    double lower_extrap_value_specify_ = 0; // user specified value for out of boundary look up
-    double upper_extrap_value_specify_ = 0; // user specified value for out of boundary look up
 };

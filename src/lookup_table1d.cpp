@@ -1,58 +1,62 @@
 #include "lookup_table1d.h"
-#include <algorithm>
-#include <limits>
 
-using std::size_t;
-
-// Set table values to new input values, validate first then set value in.
-LookupTable::SetState LookupTable1D::SetTable(const Eigen::RowVectorXd &x_table, const Eigen::RowVectorXd &y_table)
+// Assign table data with new input values, validate first.
+LookupTable::AssignmentState LookupTable1D::AssignTableData(const Eigen::RowVectorXd &x_axis, const Eigen::RowVectorXd &y_table)
 {
-    if (CheckTableState(x_table, y_table) == TableState::valid)
+    if (CheckTableState(x_axis, y_table) == TableState::valid)
     {
-        x_table_ = x_table;
+        x_axis_ = x_axis;
         y_table_ = y_table;
-        RefreshTableState();
-        return SetState::success;
+        bool refresh = RefreshTableState(); // redundant check, and refresh state in table
+        return table_valid_ ? AssignmentState::success : AssignmentState::fail;
     }
     else
     {
         // if the input value is invalid, check the current table value to set the table_state flag
-        table_valid_ = (CheckTableState(x_table_, y_table_) == TableState::valid);
-        return table_valid_? SetState::remain : SetState::fail;
+        bool refresh = RefreshTableState();
+        return table_valid_ ? AssignmentState::remain : AssignmentState::fail;
     }
 }
-LookupTable::SetState LookupTable1D::SetTable(const std::vector<double> &x_vec, const std::vector<double> &y_vec)
+LookupTable::AssignmentState LookupTable1D::AssignTableData(const std::vector<double> &x_vec, const std::vector<double> &y_vec)
 {
-    // this is vector edition, first convert then call the base SetTable function.
-    Eigen::RowVectorXd x_table = Eigen::Map<const Eigen::RowVectorXd>(x_vec.data(), x_vec.size());
+    // this is vector edition, first convert then call the base AssignTableData function.
+    Eigen::RowVectorXd x_axis = Eigen::Map<const Eigen::RowVectorXd>(x_vec.data(), x_vec.size());
     Eigen::RowVectorXd y_table = Eigen::Map<const Eigen::RowVectorXd>(y_vec.data(), y_vec.size());
-    return SetTable(x_table, y_table);
+    return AssignTableData(x_axis, y_table);
 }
-
-bool LookupTable1D::ClearTable()
+// AssignTableData is related with three functions: CheckTableState, RefreshTableState, ClearTable.
+inline bool LookupTable1D::ClearTable()
 {
-    x_table_.resize(0);
+    x_axis_.resize(0);
     y_table_.resize(0);
+    table_valid_ = false;
     table_empty_ = true;
     table_size_ = 0;
+    table_state_ = TableState::empty;
     return true;
 }
 
-void LookupTable1D::RefreshTableState()
+inline bool LookupTable1D::RefreshTableState()
 {
-    table_valid_ = (CheckTableState(x_table_, y_table_) == TableState::valid);
-    if (table_valid_)
+    table_state_ = CheckTableState(x_axis_, y_table_);
+    std::size_t x_size = ConvertSizeDataType(x_axis_.size());
+    std::size_t y_size = ConvertSizeDataType(y_table_.size());
+    if (table_state_ == TableState::valid)
     {
+        table_valid_ = true;
         table_empty_ = false;
-        table_size_ = x_table_.size();
+        table_size_ = x_size;
     }
-    else if(!table_empty_)
+    else
     {
-        bool cleared = ClearTable();    // clear the table if invalid but not empty
+        table_valid_ = false;
+        table_empty_ = table_state_ == TableState::empty;
+        table_size_ = (x_size < y_size) ? x_size : y_size;
     }
+    return table_valid_;
 }
 
-LookupTable1D::TableState LookupTable1D::CheckTableState(const Eigen::RowVectorXd &input_vector1, const Eigen::RowVectorXd &input_vector2)
+LookupTable::TableState LookupTable1D::CheckTableState(const Eigen::RowVectorXd &input_vector1, const Eigen::RowVectorXd &input_vector2)
 {
     if (input_vector1.size() == 0 || input_vector2.size() == 0)
     {
@@ -60,7 +64,7 @@ LookupTable1D::TableState LookupTable1D::CheckTableState(const Eigen::RowVectorX
     }
     else if (input_vector1.size() > max_table_size_ || input_vector1.size() < 2)
     {
-        return TableState::size_invalid; // x table size must be within the range of [2 max_table_size]
+        return TableState::size_invalid; // x table size must be within the range of [2 max_axis_size]
     }
     else if (input_vector1.size() != input_vector2.size())
     {
@@ -68,14 +72,13 @@ LookupTable1D::TableState LookupTable1D::CheckTableState(const Eigen::RowVectorX
     }
     else if (!isStrictlyIncreasing(input_vector1))
     {
-        return TableState::x_not_increase; // x table data must be strictly increasing
+        return TableState::axis_not_increase; // x table data must be strictly increasing
     }
     else
     {
         return TableState::valid; // valid data for assignment
     }
 }
-
 
 // Configurations of lookup methods
 void LookupTable1D::SetExtrapMethod(const ExtrapMethod &method)
@@ -97,14 +100,18 @@ void LookupTable1D::SetExtrapMethod(const ExtrapMethod &method, const double &lo
 // Prelook
 std::size_t LookupTable1D::PreLookup(const double &x_value)
 {
-    size_t prelook_index = SearchIndex(x_value, x_table_, search_method_, prelook_index_);
-    if (prelook_index >= 0 && prelook_index <= x_table_.size()) // valid prelookup
+    size_t prelook_index = SearchIndex(x_value, x_axis_, search_method_, prelook_index_);
+    size_t x_size = ConvertSizeDataType(x_axis_.size());
+    if (prelook_index >= 0 && prelook_index <= x_size) // valid prelookup
     {
         prelook_index_ = prelook_index; // store value
+        if (search_method_ != SearchMethod::near)
+            search_method_ = SearchMethod::near;    // set to near after binary search
     }
     else
     {
-        prelook_index = prelook_index_; // keep last value for invalid prelookup
+        prelook_index = prelook_index_;     // keep last value for invalid prelookup
+        search_method_ = SearchMethod::bin; // reset to binary search after fail
     }
     return prelook_index;
 }
@@ -127,15 +134,15 @@ double LookupTable1D::Interpolation(const std::size_t &index, const double &x_va
         return InterpolationPrevious(index, x_value);
 
     default:
-        RefreshTableState();
+        bool refresh = RefreshTableState();
         return lookup_result_;
     }
 }
 double LookupTable1D::InterpolationLinear(const std::size_t &index, const double &x_value)
 {
     // Retrieve the two nearest points for interpolation
-    double x1 = x_table_[index - 1];
-    double x2 = x_table_[index];
+    double x1 = x_axis_[index - 1];
+    double x2 = x_axis_[index];
     double y1 = y_table_[index - 1];
     double y2 = y_table_[index];
 
@@ -148,7 +155,7 @@ double LookupTable1D::InterpolationLinear(const std::size_t &index, const double
 }
 double LookupTable1D::InterpolationNearest(const std::size_t &index, const double &x_value)
 {
-    return ((x_value - x_table_[index - 1]) <= (x_table_[index] - x_value)) ? y_table_[index - 1] : y_table_[index];
+    return ((x_value - x_axis_[index - 1]) <= (x_axis_[index] - x_value)) ? y_table_[index - 1] : y_table_[index];
 }
 double LookupTable1D::InterpolationNext(const std::size_t &index, const double &x_value)
 {
@@ -171,7 +178,7 @@ double LookupTable1D::Extrapolation(const std::size_t &index, const double &x_va
     case ExtrapMethod::specify:
         return ExtrapolationSpecify(index, lower_extrap_value_specify_, upper_extrap_value_specify_);
     default:
-        RefreshTableState();
+        bool refresh = RefreshTableState();
         return lookup_result_;
     }
 }
@@ -194,8 +201,8 @@ double LookupTable1D::ExtrapolationLinear(const std::size_t &index, const double
 {
     if (index == 0)
     {
-        double x1 = x_table_[0];
-        double x2 = x_table_[1];
+        double x1 = x_axis_[0];
+        double x2 = x_axis_[1];
         double y1 = y_table_[0];
         double y2 = y_table_[1];
 
@@ -208,8 +215,8 @@ double LookupTable1D::ExtrapolationLinear(const std::size_t &index, const double
     }
     else if (index == table_size_)
     {
-        double x1 = x_table_[table_size_ - 2];
-        double x2 = x_table_[table_size_ - 1];
+        double x1 = x_axis_[table_size_ - 2];
+        double x2 = x_axis_[table_size_ - 1];
         double y1 = y_table_[table_size_ - 2];
         double y2 = y_table_[table_size_ - 1];
 
@@ -259,7 +266,7 @@ double LookupTable1D::LookupTable(const double &x_value)
     }
     else
     {
-        RefreshTableState();
+        bool refresh = RefreshTableState();
     }
     return lookup_result_;
 }

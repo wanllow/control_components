@@ -10,8 +10,6 @@ int main()
 {
 	std::vector<double> x_vec{0, 1, 2, 3, 4, 5, 6, 7};
 	std::vector<double> y_vec{0, 1, 4, 9, 9, 4, 1, 0};
-	// Eigen::RowVectorXd x_table(x_vec.data(), x_vec.size());
-	// Eigen::RowVectorXd y_table(y_vec.data(), y_vec.size());
 	Eigen::RowVectorXd x_table(5), y_table(5);
 	x_table << 1, 2, 3, 4, 5;
 	y_table << 2, 5, 7, 3, 6;
