@@ -106,10 +106,33 @@ bool LookupTable::isStrictlyIncreasing(const Eigen::RowVectorXd &input_vector)
     return true;
 }
 
-
 bool LookupTable::ReportError()
 {
     /* This function depends on the system, finish it as soon as possible */
     return table_valid_;
     /* End of this function */
+}
+
+double LookupTable::Interpolate(const double &xvalue, const double &x1, const double &x2, const double &y1, const double y2) const
+{
+    // Weight calculation
+    bool equal_zero = std::abs(x2 - x1) < epsilon_;
+    double weight = equal_zero ? 0.5 : (xvalue - x1) / (x2 - x1);
+
+    // Linear interpolate
+    return y1 + weight * (y2 - y1);
+}
+double LookupTable::Interpolate(const double &rvalue, const double &cvalue,
+                                  const double &r1, const double &r2,
+                                  const double &c1, const double &c2,
+                                  const double &m11, const double &m12,
+                                  const double &m21, const double &m22) const
+{
+    // Weight calculation
+    bool equal_zero = std::abs(r2 - r1) < epsilon_;
+    double rweight = equal_zero ? 0.5 : (rvalue - r1) / (r2 - r1);
+    equal_zero = std::abs(c2 - c1) < epsilon_;
+    double cweight = equal_zero ? 0.5 : (cvalue - c1) / (c2 - c1);
+    // Linear interpolation
+    return (1 - rweight) * ((1 - cweight) * m11 + cweight * m12) + rweight * ((1 - cweight) * m21 + cweight * m22);
 }

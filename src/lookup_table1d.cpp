@@ -98,9 +98,9 @@ void LookupTable1D::SetExtrapMethod(const ExtrapMethod &method, const double &lo
 }
 
 // Prelook
-std::size_t LookupTable1D::PreLookup(const double &x_value)
+std::size_t LookupTable1D::PreLookup(const double &xvalue)
 {
-    size_t prelook_index = SearchIndex(x_value, x_axis_, search_method_, prelook_index_);
+    size_t prelook_index = SearchIndex(xvalue, x_axis_, search_method_, prelook_index_);
     size_t x_size = ConvertSizeDataType(x_axis_.size());
     if (prelook_index >= 0 && prelook_index <= x_size) // valid prelookup
     {
@@ -117,64 +117,54 @@ std::size_t LookupTable1D::PreLookup(const double &x_value)
 }
 
 // Interpolation between the two closest points
-double LookupTable1D::Interpolation(const std::size_t &index, const double &x_value)
+double LookupTable1D::Interpolation(const std::size_t &index, const double &xvalue)
 {
     switch (interp_method_)
     {
     case InterpMethod::linear:
-        return InterpolationLinear(index, x_value);
+        return InterpolationLinear(index, xvalue);
 
     case InterpMethod::nearest:
-        return InterpolationNearest(index, x_value);
+        return InterpolationNearest(index, xvalue);
 
     case InterpMethod::next:
-        return InterpolationNext(index, x_value);
+        return InterpolationNext(index, xvalue);
 
     case InterpMethod::previous:
-        return InterpolationPrevious(index, x_value);
+        return InterpolationPrevious(index, xvalue);
 
     default:
         bool refresh = RefreshTableState();
         return lookup_result_;
     }
 }
-double LookupTable1D::InterpolationLinear(const std::size_t &index, const double &x_value)
+double LookupTable1D::InterpolationLinear(const std::size_t &index, const double &xvalue)
 {
-    // Retrieve the two nearest points for interpolation
-    double x1 = x_axis_[index - 1];
-    double x2 = x_axis_[index];
-    double y1 = y_table_[index - 1];
-    double y2 = y_table_[index];
-
-    // Calculate the weight for linear interpolation
-    bool equal_zero = std::abs(x2 - x1) < epsilon_;
-    double weight = equal_zero ? 0.5 : (x_value - x1) / (x2 - x1);
-
-    // Linearly interpolate the y value based on the weight
-    return y1 + weight * (y2 - y1);
+    // Interpolate 1D
+    return Interpolate(xvalue, x_axis_(index - 1), x_axis_(index), y_table_(index - 1), y_table_(index));
 }
-double LookupTable1D::InterpolationNearest(const std::size_t &index, const double &x_value)
+double LookupTable1D::InterpolationNearest(const std::size_t &index, const double &xvalue)
 {
-    return ((x_value - x_axis_[index - 1]) <= (x_axis_[index] - x_value)) ? y_table_[index - 1] : y_table_[index];
+    return ((xvalue - x_axis_[index - 1]) <= (x_axis_[index] - xvalue)) ? y_table_[index - 1] : y_table_[index];
 }
-double LookupTable1D::InterpolationNext(const std::size_t &index, const double &x_value)
+double LookupTable1D::InterpolationNext(const std::size_t &index, const double &xvalue)
 {
     return y_table_[index];
 }
-double LookupTable1D::InterpolationPrevious(const std::size_t &index, const double &x_value)
+double LookupTable1D::InterpolationPrevious(const std::size_t &index, const double &xvalue)
 {
     return y_table_[index - 1];
 }
 
 // Extrapolation if input is out of bounds
-double LookupTable1D::Extrapolation(const std::size_t &index, const double &x_value)
+double LookupTable1D::Extrapolation(const std::size_t &index, const double &xvalue)
 {
     switch (extrap_method_)
     {
     case ExtrapMethod::clip:
         return ExtrapolationClip(index);
     case ExtrapMethod::linear:
-        return ExtrapolationLinear(index, x_value);
+        return ExtrapolationLinear(index, xvalue);
     case ExtrapMethod::specify:
         return ExtrapolationSpecify(index, lower_extrap_value_specify_, upper_extrap_value_specify_);
     default:
@@ -197,7 +187,7 @@ double LookupTable1D::ExtrapolationClip(const std::size_t &index)
         return lookup_result_; // if failure occurs, output the last value.
     }
 }
-double LookupTable1D::ExtrapolationLinear(const std::size_t &index, const double &x_value)
+double LookupTable1D::ExtrapolationLinear(const std::size_t &index, const double &xvalue)
 {
     if (index == 0)
     {
@@ -208,7 +198,7 @@ double LookupTable1D::ExtrapolationLinear(const std::size_t &index, const double
 
         // Calculate the weight for linear extrapolation
         bool equal_zero = std::abs(x2 - x1) < epsilon_;
-        double weight = equal_zero ? 0.5 : (x_value - x1) / (x2 - x1);
+        double weight = equal_zero ? 0.5 : (xvalue - x1) / (x2 - x1);
 
         // Linearly extrapolate the y value based on the weight
         return y1 + weight * (y2 - y1);
@@ -222,7 +212,7 @@ double LookupTable1D::ExtrapolationLinear(const std::size_t &index, const double
 
         // Calculate the weight for linear extrapolation
         bool equal_zero = std::abs(x2 - x1) < epsilon_;
-        double weight = equal_zero ? 0.5 : (x_value - x1) / (x2 - x1);
+        double weight = equal_zero ? 0.5 : (xvalue - x1) / (x2 - x1);
 
         // Linearly extrapolate the y value based on the weight
         return y1 + weight * (y2 - y1);
@@ -249,20 +239,20 @@ double LookupTable1D::ExtrapolationSpecify(const std::size_t &index, const doubl
 }
 
 // Final function LookupTable
-double LookupTable1D::LookupTable(const double &x_value)
+double LookupTable1D::Lookup(const double &xvalue)
 {
     if (table_valid_)
     {
-        size_t index = PreLookup(x_value);
+        size_t index = PreLookup(xvalue);
         if (index == 0 || index == table_size_) // in the case for extrapolation
         {
-            lookup_result_ = Extrapolation(index, x_value);
+            lookup_result_ = Extrapolation(index, xvalue);
         }
         else
         {
-            lookup_result_ = Interpolation(index, x_value);
+            lookup_result_ = Interpolation(index, xvalue);
         }
-        x_value_ = x_value; // restore the input value to member variable, for use in some cases.
+        xvalue_ = xvalue; // restore the input value to member variable, for use in some cases.
     }
     else
     {

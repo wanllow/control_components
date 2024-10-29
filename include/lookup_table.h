@@ -126,4 +126,12 @@ protected:
 
     // Convert Eigen::Index (long int) type to std::size_t (unsigned long int), avoid negative integers
     inline std::size_t ConvertSizeDataType(const Eigen::Index &eigen_index) { return static_cast<std::size_t>(std::max(eigen_index, Eigen::Index(0))); }
+
+    // Interpolation basic form
+    double Interpolate(const double &xvalue, const double &x1, const double &x2, const double &y1, const double y2) const;
+    double Interpolate(const double &rvalue, const double &cvalue,
+                         const double &r1, const double &r2,
+                         const double &c1, const double &c2,
+                         const double &m11, const double &m12,
+                         const double &m21, const double &m22) const;
 };

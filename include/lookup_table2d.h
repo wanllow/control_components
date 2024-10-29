@@ -6,11 +6,10 @@
 class LookupTable2D : public LookupTable
 {
 public:
-    
     // Constructors and destructors
     LookupTable2D() = default;
-    LookupTable2D(const std::size_t & rows, const std::size_t& cols) : row_axis_{Eigen::RowVectorXd::LinSpaced(rows,1,rows)}, col_axis_{Eigen::RowVectorXd::LinSpaced(cols,1,cols)}, map_matrix_{Eigen::MatrixXd::Zero(rows, cols)} {}
-    LookupTable2D(const Eigen::RowVectorXd row_axis, const Eigen::RowVectorXd col_axis, const Eigen::VectorXd &map_matrix) { table_assigned_ = AssignTableData(row_axis, col_axis, map_matrix); }
+    LookupTable2D(const std::size_t &rows, const std::size_t &cols) : row_axis_{Eigen::RowVectorXd::LinSpaced(rows, 1, rows)}, col_axis_{Eigen::RowVectorXd::LinSpaced(cols, 1, cols)}, map_matrix_{Eigen::MatrixXd::Zero(rows, cols)} {}
+    LookupTable2D(const Eigen::RowVectorXd row_axis, const Eigen::RowVectorXd col_axis, const Eigen::MatrixXd &map_matrix) { table_assigned_ = AssignTableData(row_axis, col_axis, map_matrix); }
     LookupTable2D(const std::vector<double> &row_axis, const std::vector<double> &col_axis, const std::vector<double> &map_matrix) { table_assigned_ = AssignTableData(row_axis, col_axis, map_matrix); }
     ~LookupTable2D() = default;
 
@@ -24,15 +23,17 @@ public:
     AssignmentState AssignTableData(const std::vector<double> &row_vec, const std::vector<double> &col_vec, const std::vector<double> &map_vec);
     bool ClearTable() override;
 
-    //
+    // Lookup table based on input, using current search, interp, and extrap methods
+    double Lookup(const double &rvalue, const double &cvalue);
+
 private:
     // Core members
     Eigen::RowVectorXd row_axis_; // the row axis
     Eigen::RowVectorXd col_axis_; // the column axis
     Eigen::MatrixXd map_matrix_;  // the map matrix
-    double row_value_ = 0;          // restore the input x value for lookup
-    double col_value_ = 0;          // restore the input y value for lookup
-    double lookup_result_ = 0;      // restore lookup result
+    double row_value_ = 0;        // restore the input x value for lookup
+    double col_value_ = 0;        // restore the input y value for lookup
+    double lookup_result_ = 0;    // restore lookup result
     MatrixIndex prelook_index_{0, 0};
     // Table state members
     MatrixIndex table_size_{0, 0};

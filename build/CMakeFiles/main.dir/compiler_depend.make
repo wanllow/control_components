@@ -1402,7 +1402,8 @@ CMakeFiles/main.dir/src/lookup_table2d.cpp.o: ../src/lookup_table2d.cpp \
   /usr/include/c++/11/pstl/glue_numeric_defs.h \
   ../third_party/eigen-3.4.0/Eigen/LU \
   ../third_party/eigen-3.4.0/Eigen/QR \
-  ../third_party/eigen-3.4.0/Eigen/src/Core/util/ReenableStupidWarnings.h
+  ../third_party/eigen-3.4.0/Eigen/src/Core/util/ReenableStupidWarnings.h \
+  /usr/include/c++/11/iostream
 
 CMakeFiles/main.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/stdc-predef.h \
@@ -1871,7 +1872,8 @@ CMakeFiles/main.dir/src/main.cpp.o: ../src/main.cpp \
   ../third_party/eigen-3.4.0/Eigen/LU \
   ../third_party/eigen-3.4.0/Eigen/QR \
   ../third_party/eigen-3.4.0/Eigen/src/Core/util/ReenableStupidWarnings.h \
-  ../include/lookup_table.h
+  ../include/lookup_table.h \
+  ../include/lookup_table2d.h
 
 
 ../src/lookup_table2d.cpp:

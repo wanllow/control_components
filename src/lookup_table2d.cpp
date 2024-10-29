@@ -1,4 +1,5 @@
 #include "lookup_table2d.h"
+#include <iostream>
 
 // Assign table data
 LookupTable::AssignmentState LookupTable2D::AssignTableData(const Eigen::RowVectorXd &row_axis, const Eigen::RowVectorXd &col_axis, const Eigen::MatrixXd &map_matrix)
@@ -25,7 +26,7 @@ LookupTable::AssignmentState LookupTable2D::AssignTableData(const std::vector<do
     {
         Eigen::RowVectorXd row_axis = Eigen::Map<const Eigen::RowVectorXd>(row_vec.data(), rows);
         Eigen::RowVectorXd col_axis = Eigen::Map<const Eigen::RowVectorXd>(col_vec.data(), cols);
-        Eigen::MatrixXd map_matrix = Eigen::Map<const Eigen::MatrixXd>(map_vec.data(), rows, cols);
+        Eigen::MatrixXd map_matrix = Eigen::Map<const Eigen::MatrixXd>(map_vec.data(), cols, rows).transpose();
         return AssignTableData(row_axis, col_axis, map_matrix);
     }
     else
@@ -89,10 +90,10 @@ LookupTable::TableState LookupTable2D::CheckTableState(const Eigen::RowVectorXd 
     }
 }
 
-LookupTable::MatrixIndex LookupTable2D::PreLookup(const double &row_value, const double &col_value)
+LookupTable::MatrixIndex LookupTable2D::PreLookup(const double &rvalue, const double &cvalue)
 {
-    std::size_t row = SearchIndex(row_value, row_axis_, search_method_, prelook_index_.rows());
-    std::size_t col = SearchIndex(col_value, col_axis_, search_method_, prelook_index_.cols());
+    std::size_t row = SearchIndex(rvalue, row_axis_, search_method_, prelook_index_.rows());
+    std::size_t col = SearchIndex(cvalue, col_axis_, search_method_, prelook_index_.cols());
     size_t max_row = ConvertSizeDataType(row_axis_.size());
     size_t max_col = ConvertSizeDataType(col_axis_.size());
     if (row >= 0 && row <= max_row && col >= 0 && col <= max_col)
@@ -124,18 +125,11 @@ double LookupTable2D::Interpolation(const MatrixIndex &prelookup_index, const do
     const double &m12 = map_matrix_(rindex - 1, cindex);
     const double &m21 = map_matrix_(rindex, cindex - 1);
     const double &m22 = map_matrix_(rindex, cindex);
-    // Weight calculation
-    bool equal_zero = std::abs(r2 - r1) < epsilon_;
-    double rweight = equal_zero ? 0.5 : (rvalue - r1) / (r2 - r1);
-    equal_zero = std::abs(c2 - c1) < epsilon_;
-    double cweight = equal_zero ? 0.5 : (rvalue - c1) / (c2 - c1);
-    // Interpolate
-    double result = (1 - rweight) * ((1 - cweight) * m11 + cweight * m12) +
-                    rweight * ((1 - cweight) * m21 + cweight * m22);
-    return result;
+    // Calculate
+    return Interpolate(rvalue, cvalue, r1, r2, c1, c2, m11, m12, m21, m22);
 }
 
-double LookupTable2D::Extrapolation(const MatrixIndex &prelookup_index, const double &row_value, const double &col_value)
+double LookupTable2D::Extrapolation(const MatrixIndex &prelookup_index, const double &rvalue, const double &cvalue)
 {
     // Setting calculation range
     const std::size_t &rindex = prelookup_index.rows();
@@ -156,62 +150,64 @@ double LookupTable2D::Extrapolation(const MatrixIndex &prelookup_index, const do
         }
         else
         {
-            const double &c1 = col_axis_(cindex - 1);
-            const double &c2 = col_axis_(cindex);
-            const double &m1 = map_matrix_(0, cindex - 1);
-            const double &m2 = map_matrix_(0, cindex);
-
-            bool equal_zero = std::abs(c2 - c1) < epsilon_;
-            double weight = equal_zero ? 0.5 : (col_value - c1) / (c2 - c1);
-            result = m1 + weight * (m2 - m1);
+            // Interpolate 1D
+            result = Interpolate(cvalue, col_axis_(cindex - 1), col_axis_(cindex), map_matrix_(0, cindex - 1), map_matrix_(0, cindex));
         }
     }
-    else if(rindex > rsize)
+    else if (rindex >= rsize)
     {
         if (cindex < 1)
         {
-            result = map_matrix_(rsize - 1,0);
+            result = map_matrix_(rsize - 1, 0);
         }
-        if (cindex >= csize)
+        else if (cindex >= csize)
         {
             result = map_matrix_(rsize - 1, csize - 1);
         }
         else
         {
-            const double &c1 = col_axis_(cindex - 1);
-            const double &c2 = col_axis_(cindex);
-            const double &m1 = map_matrix_(rsize - 1, cindex - 1);
-            const double &m2 = map_matrix_(rsize - 1, cindex);
-
-            bool equal_zero = std::abs(c2 - c1) < epsilon_;
-            double weight = equal_zero ? 0.5 : (col_value - c1) / (c2 - c1);
-            result = m1 + weight * (m2 - m1);
+            // Interpolate 1D
+            result = Interpolate(cvalue, col_axis_(cindex - 1), col_axis_(cindex), map_matrix_(rsize - 1, cindex - 1), map_matrix_(rsize - 1, cindex));
         }
     }
     else
     {
         if (cindex < 1)
         {
-            const double &r1 = row_axis_(rindex - 1);
-            const double &r2 = row_axis_(rindex);
-            const double &m1 = map_matrix_(rindex - 1, 0);
-            const double &m2 = map_matrix_(rindex, 0);
-
-            bool equal_zero = std::abs(r2 - r1) < epsilon_;
-            double weight = equal_zero ? 0.5 : (col_value - r1) / (r2 - r1);
-            result = m1 + weight * (m2 - m1);
+            // Interpolate 1D
+            result = Interpolate(rvalue, row_axis_(rindex - 1), row_axis_(rindex - 1), map_matrix_(rindex - 1, 0), map_matrix_(rindex, 0));
         }
-        else if(cindex >= csize)
+        else if (cindex >= csize)
         {
-            const double &r1 = row_axis_(rindex - 1);
-            const double &r2 = row_axis_(rindex);
-            const double &m1 = map_matrix_(rindex - 1, csize - 1);
-            const double &m2 = map_matrix_(rindex, csize - 1);
-
-            bool equal_zero = std::abs(r2 - r1) < epsilon_;
-            double weight = equal_zero ? 0.5 : (col_value - r1) / (r2 - r1);
-            result = m1 + weight * (m2 - m1);
+            // Interpolate 1D
+            result = Interpolate(rvalue, row_axis_(rindex - 1), row_axis_(rindex), map_matrix_(rindex - 1, csize - 1), map_matrix_(rindex, csize - 1));
         }
     }
     return result;
+}
+
+// Lookup table based on input, using current search, interp, and extrap methods
+double LookupTable2D::Lookup(const double &rvalue, const double &cvalue)
+{
+    if (table_valid_)
+    {
+        MatrixIndex matrix_index = PreLookup(rvalue, cvalue);
+        std::size_t rindex = matrix_index.rows();
+        std::size_t cindex = matrix_index.cols();
+        const std::size_t rsize = table_size_.rows();
+        const std::size_t csize = table_size_.cols();
+        if (rindex > 0 && rindex < rsize && cindex > 0 && cindex < csize)
+        {
+            lookup_result_ = Interpolation(matrix_index, rvalue, cvalue);
+        }
+        else
+        {
+            lookup_result_ = Extrapolation(matrix_index, rvalue, cvalue);
+        }
+    }
+    else
+    {
+        bool refresh = RefreshTableState();
+    }
+    return lookup_result_;
 }

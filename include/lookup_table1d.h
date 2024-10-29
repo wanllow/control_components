@@ -24,7 +24,7 @@ public:
     bool ClearTable() override;
 
     // Lookup table based on input, using current search, interp, and extrap methods
-    double LookupTable(const double &x_value);
+    double Lookup(const double &xvalue);
 
     // Configure the methods
     void SetExtrapMethod(const ExtrapMethod &method);
@@ -36,7 +36,7 @@ private:
     // Core members
     Eigen::RowVectorXd x_axis_;
     Eigen::RowVectorXd y_table_;
-    double x_value_ = 0;            // restore the input x value for lookup, use if necessary.
+    double xvalue_ = 0;            // restore the input x value for lookup, use if necessary.
     double lookup_result_ = 0;      // restore output value.
     std::size_t prelook_index_ = 0; // restore prelook index value.
     // Other parameters
@@ -49,18 +49,18 @@ private:
     TableState CheckTableState(const Eigen::RowVectorXd &input_vector1, const Eigen::RowVectorXd &input_vector2);
 
     // Prelookup to find the index of the input value
-    std::size_t PreLookup(const double &x_value);
+    std::size_t PreLookup(const double &xvalue);
 
     // Interpolation between the two closest points
-    double Interpolation(const std::size_t &prelookup_index, const double &x_value);
-    double InterpolationLinear(const std::size_t &prelookup_index, const double &x_value);
-    double InterpolationNearest(const std::size_t &prelookup_index, const double &x_value);
-    double InterpolationNext(const std::size_t &prelookup_index, const double &x_value);
-    double InterpolationPrevious(const std::size_t &prelookup_index, const double &x_value);
+    double Interpolation(const std::size_t &prelookup_index, const double &xvalue);
+    double InterpolationLinear(const std::size_t &prelookup_index, const double &xvalue);
+    double InterpolationNearest(const std::size_t &prelookup_index, const double &xvalue);
+    double InterpolationNext(const std::size_t &prelookup_index, const double &xvalue);
+    double InterpolationPrevious(const std::size_t &prelookup_index, const double &xvalue);
 
     // Extrapolation if input is out of bounds
-    double Extrapolation(const std::size_t &prelookup_index, const double &x_value);
+    double Extrapolation(const std::size_t &prelookup_index, const double &xvalue);
     double ExtrapolationClip(const std::size_t &prelookup_index);
-    double ExtrapolationLinear(const std::size_t &prelookup_index, const double &x_value);
+    double ExtrapolationLinear(const std::size_t &prelookup_index, const double &xvalue);
     double ExtrapolationSpecify(const std::size_t &prelookup_index, const double &lower_extrap_value, const double &upper_extrap_value);
 };
