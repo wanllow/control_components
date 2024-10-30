@@ -64,7 +64,7 @@ LookupTable::TableState LookupTable1D::CheckTableState(const Eigen::RowVectorXd 
     }
     else if (input_vector1.size() > max_table_size_ || input_vector1.size() < 2)
     {
-        return TableState::size_invalid; // x table size must be within the range of [2 max_axis_size]
+        return TableState::size_invalid; // x table size must be within the range of (2 max_axis_size)
     }
     else if (input_vector1.size() != input_vector2.size())
     {
@@ -145,15 +145,15 @@ double LookupTable1D::InterpolationLinear(const std::size_t &index, const double
 }
 double LookupTable1D::InterpolationNearest(const std::size_t &index, const double &xvalue)
 {
-    return ((xvalue - x_axis_[index - 1]) <= (x_axis_[index] - xvalue)) ? y_table_[index - 1] : y_table_[index];
+    return ((xvalue - x_axis_(index - 1)) <= (x_axis_(index) - xvalue)) ? y_table_(index - 1) : y_table_(index);
 }
 double LookupTable1D::InterpolationNext(const std::size_t &index, const double &xvalue)
 {
-    return y_table_[index];
+    return y_table_(index);
 }
 double LookupTable1D::InterpolationPrevious(const std::size_t &index, const double &xvalue)
 {
-    return y_table_[index - 1];
+    return y_table_(index - 1);
 }
 
 // Extrapolation if input is out of bounds
@@ -191,10 +191,10 @@ double LookupTable1D::ExtrapolationLinear(const std::size_t &index, const double
 {
     if (index == 0)
     {
-        double x1 = x_axis_[0];
-        double x2 = x_axis_[1];
-        double y1 = y_table_[0];
-        double y2 = y_table_[1];
+        double x1 = x_axis_(0);
+        double x2 = x_axis_(1);
+        double y1 = y_table_(0);
+        double y2 = y_table_(1);
 
         // Calculate the weight for linear extrapolation
         bool equal_zero = std::abs(x2 - x1) < epsilon_;
@@ -205,10 +205,10 @@ double LookupTable1D::ExtrapolationLinear(const std::size_t &index, const double
     }
     else if (index == table_size_)
     {
-        double x1 = x_axis_[table_size_ - 2];
-        double x2 = x_axis_[table_size_ - 1];
-        double y1 = y_table_[table_size_ - 2];
-        double y2 = y_table_[table_size_ - 1];
+        double x1 = x_axis_(table_size_ - 2);
+        double x2 = x_axis_(table_size_ - 1);
+        double y1 = y_table_(table_size_ - 2);
+        double y2 = y_table_(table_size_ - 1);
 
         // Calculate the weight for linear extrapolation
         bool equal_zero = std::abs(x2 - x1) < epsilon_;

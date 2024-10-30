@@ -7,15 +7,24 @@
 using std::size_t;
 using std::vector;
 
-int main()
+void TestTable1D()
 {
 	std::vector<double> x_vec{0, 1, 2, 3, 4, 5, 6, 7};
 	std::vector<double> y_vec{0, 1, 4, 9, 9, 4, 1, 0};
 	LookupTable1D table_1d(x_vec, y_vec);
-	table_1d.SetSearchMethod(LookupTable::SearchMethod::near);
-	table_1d.SetInterpMethod(LookupTable::InterpMethod::linear);
-	table_1d.SetExtrapMethod(LookupTable::ExtrapMethod::clip);
+	// table_1d.SetSearchMethod(LookupTable::SearchMethod::near);
+	// table_1d.SetInterpMethod(LookupTable::InterpMethod::linear);
+	// table_1d.SetExtrapMethod(LookupTable::ExtrapMethod::clip);
+	std::vector<double> x_value{-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5};
+	for(auto &xval : x_value)
+	{
+		std::cout << table_1d.Lookup(xval) << "\t";
+	}
+	std::cout << std::endl;
+}
 
+void TestTable2D()
+{
 	std::vector<double> row_vec = {1.0, 2.0, 3.0, 4.0};
 	std::vector<double> col_vec = {10.0, 20.0, 30.0};
 	std::vector<double> map_vec = {
@@ -31,23 +40,30 @@ int main()
 	{
 		for (int j = 0; j != 3; ++j)
 		{
-			std::cout << map_vec[i * 3 + j] << "\t";for (int i = 0; i != 5; ++i);
+			std::cout << map_vec[i * 3 + j] << "\t";
+			for (int i = 0; i != 5; ++i)
+				;
 		}
 		std::cout << std::endl;
 	}
 	std::cout << "===============================" << std::endl;
-	LookupTable2D table_2d(row_axis, col_axis, map_matrix);
-	std::vector<double> rval = {0.5, 1.5, 2.5, 3.5, 4.5};
-	std::vector<double> cval = {5.0, 15.0, 25.0, 35.0};
-	for (int i = 0; i != 5; ++i)
+	// LookupTable2D table_2d(row_axis, col_axis, map_matrix);
+	LookupTable2D table_2d(row_vec, col_vec, map_vec);
+	std::vector<double> row_value = {0.5, 1.5, 2.5, 3.5, 4.5};
+	std::vector<double> col_value = {5.0, 15.0, 25.0, 35.0};
+	for (auto rval : row_value)
 	{
-		for (int j = 0; j != 4; ++j)
+		for (auto cval : col_value)
 		{
-			std::cout << table_2d.Lookup(rval[i], cval[j]) << "\t";
+			std::cout << table_2d.Lookup(rval, cval) << "\t";
 		}
 		std::cout << std::endl;
 	}
-	// std::cout << table_2d.Lookup(2.5, 15) << std::endl;
-	// std::cout << test_table_1d.SearchIndex(0.5, x_table, LookupTable::SearchMethod::near, 5.1) << std::endl;
+}
+
+int main()
+{
+	TestTable2D();
+
 	return 0;
 }
