@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/longwang/workspace/lookup_table/build"
+			"value" : "/home/longwang/workspace/control_components/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -591,7 +591,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/longwang/workspace/lookup_table"
+			"value" : "/home/longwang/workspace/control_components"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -835,7 +835,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "lookup_table"
+			"value" : "control_components"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1118,7 +1118,7 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "lookup_table_BINARY_DIR",
+			"name" : "control_components_BINARY_DIR",
 			"properties" : 
 			[
 				{
@@ -1127,10 +1127,10 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/longwang/workspace/lookup_table/build"
+			"value" : "/home/longwang/workspace/control_components/build"
 		},
 		{
-			"name" : "lookup_table_IS_TOP_LEVEL",
+			"name" : "control_components_IS_TOP_LEVEL",
 			"properties" : 
 			[
 				{
@@ -1142,7 +1142,7 @@
 			"value" : "ON"
 		},
 		{
-			"name" : "lookup_table_SOURCE_DIR",
+			"name" : "control_components_SOURCE_DIR",
 			"properties" : 
 			[
 				{
@@ -1151,7 +1151,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/longwang/workspace/lookup_table"
+			"value" : "/home/longwang/workspace/control_components"
 		}
 	],
 	"kind" : "cache",

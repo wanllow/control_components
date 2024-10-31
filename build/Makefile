@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/longwang/workspace/lookup_table
+CMAKE_SOURCE_DIR = /home/longwang/workspace/control_components
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/longwang/workspace/lookup_table/build
+CMAKE_BINARY_DIR = /home/longwang/workspace/control_components/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/lookup_table/build/CMakeFiles /home/longwang/workspace/lookup_table/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/control_components/build/CMakeFiles /home/longwang/workspace/control_components/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/lookup_table/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/longwang/workspace/control_components/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -201,29 +201,53 @@ src/lookup_table2d.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/lookup_table2d.cpp.s
 .PHONY : src/lookup_table2d.cpp.s
 
-src/main.o: src/main.cpp.o
-.PHONY : src/main.o
+test/main.o: test/main.cpp.o
+.PHONY : test/main.o
 
 # target to build an object file
-src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
+test/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/main.cpp.o
+.PHONY : test/main.cpp.o
 
-src/main.i: src/main.cpp.i
-.PHONY : src/main.i
+test/main.i: test/main.cpp.i
+.PHONY : test/main.i
 
 # target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
+test/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/main.cpp.i
+.PHONY : test/main.cpp.i
 
-src/main.s: src/main.cpp.s
-.PHONY : src/main.s
+test/main.s: test/main.cpp.s
+.PHONY : test/main.s
 
 # target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
+test/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/main.cpp.s
+.PHONY : test/main.cpp.s
+
+test/test_table.o: test/test_table.cpp.o
+.PHONY : test/test_table.o
+
+# target to build an object file
+test/test_table.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/test_table.cpp.o
+.PHONY : test/test_table.cpp.o
+
+test/test_table.i: test/test_table.cpp.i
+.PHONY : test/test_table.i
+
+# target to preprocess a source file
+test/test_table.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/test_table.cpp.i
+.PHONY : test/test_table.cpp.i
+
+test/test_table.s: test/test_table.cpp.s
+.PHONY : test/test_table.s
+
+# target to generate assembly for a file
+test/test_table.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/test_table.cpp.s
+.PHONY : test/test_table.cpp.s
 
 # Help Target
 help:
@@ -243,9 +267,12 @@ help:
 	@echo "... src/lookup_table2d.o"
 	@echo "... src/lookup_table2d.i"
 	@echo "... src/lookup_table2d.s"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
+	@echo "... test/main.o"
+	@echo "... test/main.i"
+	@echo "... test/main.s"
+	@echo "... test/test_table.o"
+	@echo "... test/test_table.i"
+	@echo "... test/test_table.s"
 .PHONY : help
 
 

@@ -128,8 +128,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/home/longwang/workspace/lookup_table/build",
-		"source" : "/home/longwang/workspace/lookup_table"
+		"build" : "/home/longwang/workspace/control_components/build",
+		"source" : "/home/longwang/workspace/control_components"
 	},
 	"version" : 
 	{

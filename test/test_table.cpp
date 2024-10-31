@@ -1,11 +1,5 @@
-#include <iostream>
-#include <algorithm>
-#include <Eigen/Dense>
-#include "lookup_table1d.h"
-#include "lookup_table2d.h"
+#include "test_table.h"
 
-using std::size_t;
-using std::vector;
 
 void TestTable1D()
 {
@@ -59,11 +53,4 @@ void TestTable2D()
 		}
 		std::cout << std::endl;
 	}
-}
-
-int main()
-{
-	TestTable2D();
-
-	return 0;
 }

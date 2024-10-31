@@ -26,19 +26,19 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 11,
+				"line" : 14,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 17,
+				"line" : 20,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 13,
+				"line" : 16,
 				"parent" : 0
 			}
 		]
@@ -63,15 +63,15 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "/home/longwang/workspace/lookup_table/include"
+					"path" : "/home/longwang/workspace/control_components/include"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "/home/longwang/workspace/lookup_table/third_party/eigen-3.4.0"
+					"path" : "/home/longwang/workspace/control_components/third_party/eigen-3.4.0"
 				},
 				{
 					"backtrace" : 2,
-					"path" : "/home/longwang/workspace/lookup_table/third_party/eigen-3.4.0/include/eigen3"
+					"path" : "/home/longwang/workspace/control_components/third_party/eigen-3.4.0/include/eigen3"
 				}
 			],
 			"language" : "CXX",
@@ -80,7 +80,8 @@
 				0,
 				1,
 				2,
-				3
+				3,
+				4
 			]
 		}
 	],
@@ -116,16 +117,17 @@
 				0,
 				1,
 				2,
-				3
+				3,
+				4
 			]
 		},
 		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				4,
 				5,
-				6
+				6,
+				7
 			]
 		}
 	],
@@ -152,7 +154,13 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/main.cpp",
+			"path" : "test/main.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "test/test_table.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
