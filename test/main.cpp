@@ -1,11 +1,7 @@
-#include <iostream>
-#include "test_table.h"
+#include "main.h"
 
+int main() {
+  wanllow::control::TestIntegrator();
 
-
-int main()
-{
-	TestTable2D();
-
-	return 0;
+  return 0;
 }

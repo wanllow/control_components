@@ -129,6 +129,30 @@ main/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
+src/discrete_integrator.o: src/discrete_integrator.cpp.o
+.PHONY : src/discrete_integrator.o
+
+# target to build an object file
+src/discrete_integrator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/discrete_integrator.cpp.o
+.PHONY : src/discrete_integrator.cpp.o
+
+src/discrete_integrator.i: src/discrete_integrator.cpp.i
+.PHONY : src/discrete_integrator.i
+
+# target to preprocess a source file
+src/discrete_integrator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/discrete_integrator.cpp.i
+.PHONY : src/discrete_integrator.cpp.i
+
+src/discrete_integrator.s: src/discrete_integrator.cpp.s
+.PHONY : src/discrete_integrator.s
+
+# target to generate assembly for a file
+src/discrete_integrator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/discrete_integrator.cpp.s
+.PHONY : src/discrete_integrator.cpp.s
+
 src/lookup_table.o: src/lookup_table.cpp.o
 .PHONY : src/lookup_table.o
 
@@ -225,6 +249,30 @@ test/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/main.cpp.s
 .PHONY : test/main.cpp.s
 
+test/test_integrator.o: test/test_integrator.cpp.o
+.PHONY : test/test_integrator.o
+
+# target to build an object file
+test/test_integrator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/test_integrator.cpp.o
+.PHONY : test/test_integrator.cpp.o
+
+test/test_integrator.i: test/test_integrator.cpp.i
+.PHONY : test/test_integrator.i
+
+# target to preprocess a source file
+test/test_integrator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/test_integrator.cpp.i
+.PHONY : test/test_integrator.cpp.i
+
+test/test_integrator.s: test/test_integrator.cpp.s
+.PHONY : test/test_integrator.s
+
+# target to generate assembly for a file
+test/test_integrator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/test_integrator.cpp.s
+.PHONY : test/test_integrator.cpp.s
+
 test/test_table.o: test/test_table.cpp.o
 .PHONY : test/test_table.o
 
@@ -258,6 +306,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... main"
+	@echo "... src/discrete_integrator.o"
+	@echo "... src/discrete_integrator.i"
+	@echo "... src/discrete_integrator.s"
 	@echo "... src/lookup_table.o"
 	@echo "... src/lookup_table.i"
 	@echo "... src/lookup_table.s"
@@ -270,6 +321,9 @@ help:
 	@echo "... test/main.o"
 	@echo "... test/main.i"
 	@echo "... test/main.s"
+	@echo "... test/test_integrator.o"
+	@echo "... test/test_integrator.i"
+	@echo "... test/test_integrator.s"
 	@echo "... test/test_table.o"
 	@echo "... test/test_table.i"
 	@echo "... test/test_table.s"

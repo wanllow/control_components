@@ -9,7 +9,7 @@ file(GLOB_RECURSE HDRS "include/*.h")
 file(GLOB_RECURSE SRCS "src/*.cpp")
 
 file(GLOB_RECURSE TESTC "test/*.cpp")
-file(GLOB_RECURSE TESTH "include/*.h")
+file(GLOB_RECURSE TESTH "test/*.h")
 
 add_executable(main ${SRCS} ${TESTC} ${HDRS} ${TESTH})
 target_compile_features(main PUBLIC cxx_std_11)

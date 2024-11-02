@@ -1,0 +1,21 @@
+// Control Components
+// Copyright (c) [2024] [wanllow]
+//
+// This file is part of Control Components, distributed under the MIT License.
+// For details, see the LICENSE file in the root directory of this source tree.
+//
+// This project includes Eigen, which is distributed under the Mozilla Public
+// License, v2.0. See https://www.mozilla.org/en-US/MPL/2.0/ for the full Eigen
+// license text.
+
+/*
+    @here are headers and includes
+*/
+
+namespace wanllow {
+namespace control {
+
+/***** here are contents of the code *****/
+
+}  // namespace control
+}  // namespace wanllow
