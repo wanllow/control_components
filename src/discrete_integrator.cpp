@@ -11,10 +11,11 @@
 
 namespace wanllow {
 namespace control {
-bool DiscreteIntegrator::SetIntegrator(
-    const std::vector<double>& yvec, const double& dx,
-    const double& init_value,
-    IntegrateMethod integrate_method) {
+// Set integrator using uniformly spaced integration
+bool DiscreteIntegrator::SetIntegrator(const std::vector<double>& yvec,
+                                       const double& dx,
+                                       const double& init_value,
+                                       IntegrateMethod integrate_method) {
   if (dx <= 0) {
     valid_ = false;
   } else {
@@ -27,24 +28,29 @@ bool DiscreteIntegrator::SetIntegrator(
   }
   return valid_;
 }
-
-bool DiscreteIntegrator::SetIntegrator(
-    const std::vector<double>& yvec, const std::vector<double>& xvec,
-    const double& init_value,
-    IntegrateMethod integrate_method) {
+// Set integrator using variable spaced integration
+bool DiscreteIntegrator::SetIntegrator(const std::vector<double>& yvec,
+                                       const std::vector<double>& xvec,
+                                       const double& init_value,
+                                       IntegrateMethod integrate_method) {
   if (xvec.empty() || yvec.empty()) {
     valid_ = false;
   } else if (yvec.size() == xvec.size()) {
+    valid_ = false;
+  } else if (!IsStrictlyIncreasing(std::begin(xvec), std::end(xvec))) {
+    valid_ = false;
+  } else {
     yvec_ = yvec;
     xvec_ = xvec;
     integrate_result_ = init_value;
     integrate_method_ = integrate_method;
     even_space_ = false;
     valid_ = true;
-  } else {
-    valid_ = false;
   }
   return valid_;
 }
+
+
+
 }  // namespace control
 }  // namespace wanllow

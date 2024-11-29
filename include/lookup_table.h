@@ -15,6 +15,7 @@
 #include <limits>
 #include <unsupported/Eigen/Splines>
 #include <vector>
+#include "common_utils.h"
 
 namespace wanllow {
 namespace control {

@@ -91,8 +91,10 @@ LookupTable::TableState LookupTable2D::CheckTableState(
   } else if (input_vector1.size() != input_matrix.rows() ||
              input_vector2.size() != input_matrix.cols()) {
     return LookupTable::TableState::size_not_match;
-  } else if (!isStrictlyIncreasing(input_vector1) ||
-             !isStrictlyIncreasing(input_vector2)) {
+  } else if (!IsStrictlyIncreasing(std::begin(input_vector1),
+                                   std::end(input_vector1)) ||
+             !IsStrictlyIncreasing(std::begin(input_vector2),
+                                   std::end(input_vector2))) {
     return LookupTable::TableState::axis_not_increase;
   } else {
     return LookupTable::TableState::valid;

@@ -93,12 +93,12 @@ std::size_t LookupTable::SearchIndex(const double &value,
 }
 
 bool LookupTable::isStrictlyIncreasing(const Eigen::RowVectorXd &input_vector) {
-  for (size_t index = 1; index < input_vector.size(); ++index) {
-    if (input_vector(index) - input_vector(index - 1) < epsilon_) {
-      return false;
-    }
-  }
-  return true;
+  // for (size_t index = 1; index < input_vector.size(); ++index) {
+  //   if (input_vector(index) - input_vector(index - 1) < epsilon_) {
+  //     return false;
+  //   }
+  // }
+  return IsStrictlyIncreasing(std::begin(input_vector),std::end(input_vector));
 }
 
 bool LookupTable::ReportError() {

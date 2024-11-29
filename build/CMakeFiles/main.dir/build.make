@@ -83,10 +83,24 @@ CMakeFiles/main.dir/src/discrete_integrator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/discrete_integrator.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/longwang/workspace/control_components/src/discrete_integrator.cpp -o CMakeFiles/main.dir/src/discrete_integrator.cpp.s
 
+CMakeFiles/main.dir/src/integrate_functions.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/integrate_functions.cpp.o: ../src/integrate_functions.cpp
+CMakeFiles/main.dir/src/integrate_functions.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/longwang/workspace/control_components/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/src/integrate_functions.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/integrate_functions.cpp.o -MF CMakeFiles/main.dir/src/integrate_functions.cpp.o.d -o CMakeFiles/main.dir/src/integrate_functions.cpp.o -c /home/longwang/workspace/control_components/src/integrate_functions.cpp
+
+CMakeFiles/main.dir/src/integrate_functions.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/integrate_functions.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/longwang/workspace/control_components/src/integrate_functions.cpp > CMakeFiles/main.dir/src/integrate_functions.cpp.i
+
+CMakeFiles/main.dir/src/integrate_functions.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/integrate_functions.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/longwang/workspace/control_components/src/integrate_functions.cpp -o CMakeFiles/main.dir/src/integrate_functions.cpp.s
+
 CMakeFiles/main.dir/src/lookup_table.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/lookup_table.cpp.o: ../src/lookup_table.cpp
 CMakeFiles/main.dir/src/lookup_table.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/longwang/workspace/control_components/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/src/lookup_table.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/longwang/workspace/control_components/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/lookup_table.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/lookup_table.cpp.o -MF CMakeFiles/main.dir/src/lookup_table.cpp.o.d -o CMakeFiles/main.dir/src/lookup_table.cpp.o -c /home/longwang/workspace/control_components/src/lookup_table.cpp
 
 CMakeFiles/main.dir/src/lookup_table.cpp.i: cmake_force
@@ -100,7 +114,7 @@ CMakeFiles/main.dir/src/lookup_table.cpp.s: cmake_force
 CMakeFiles/main.dir/src/lookup_table1d.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/lookup_table1d.cpp.o: ../src/lookup_table1d.cpp
 CMakeFiles/main.dir/src/lookup_table1d.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/longwang/workspace/control_components/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/lookup_table1d.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/longwang/workspace/control_components/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main.dir/src/lookup_table1d.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/lookup_table1d.cpp.o -MF CMakeFiles/main.dir/src/lookup_table1d.cpp.o.d -o CMakeFiles/main.dir/src/lookup_table1d.cpp.o -c /home/longwang/workspace/control_components/src/lookup_table1d.cpp
 
 CMakeFiles/main.dir/src/lookup_table1d.cpp.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/main.dir/src/lookup_table1d.cpp.s: cmake_force
 CMakeFiles/main.dir/src/lookup_table2d.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/lookup_table2d.cpp.o: ../src/lookup_table2d.cpp
 CMakeFiles/main.dir/src/lookup_table2d.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/longwang/workspace/control_components/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main.dir/src/lookup_table2d.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/longwang/workspace/control_components/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main.dir/src/lookup_table2d.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/lookup_table2d.cpp.o -MF CMakeFiles/main.dir/src/lookup_table2d.cpp.o.d -o CMakeFiles/main.dir/src/lookup_table2d.cpp.o -c /home/longwang/workspace/control_components/src/lookup_table2d.cpp
 
 CMakeFiles/main.dir/src/lookup_table2d.cpp.i: cmake_force
@@ -128,7 +142,7 @@ CMakeFiles/main.dir/src/lookup_table2d.cpp.s: cmake_force
 CMakeFiles/main.dir/test/main.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/test/main.cpp.o: ../test/main.cpp
 CMakeFiles/main.dir/test/main.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/longwang/workspace/control_components/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main.dir/test/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/longwang/workspace/control_components/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/main.dir/test/main.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/test/main.cpp.o -MF CMakeFiles/main.dir/test/main.cpp.o.d -o CMakeFiles/main.dir/test/main.cpp.o -c /home/longwang/workspace/control_components/test/main.cpp
 
 CMakeFiles/main.dir/test/main.cpp.i: cmake_force
@@ -139,10 +153,24 @@ CMakeFiles/main.dir/test/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/test/main.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/longwang/workspace/control_components/test/main.cpp -o CMakeFiles/main.dir/test/main.cpp.s
 
+CMakeFiles/main.dir/test/test.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/test/test.cpp.o: ../test/test.cpp
+CMakeFiles/main.dir/test/test.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/longwang/workspace/control_components/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/main.dir/test/test.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/test/test.cpp.o -MF CMakeFiles/main.dir/test/test.cpp.o.d -o CMakeFiles/main.dir/test/test.cpp.o -c /home/longwang/workspace/control_components/test/test.cpp
+
+CMakeFiles/main.dir/test/test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/test/test.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/longwang/workspace/control_components/test/test.cpp > CMakeFiles/main.dir/test/test.cpp.i
+
+CMakeFiles/main.dir/test/test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/test/test.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/longwang/workspace/control_components/test/test.cpp -o CMakeFiles/main.dir/test/test.cpp.s
+
 CMakeFiles/main.dir/test/test_integrator.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/test/test_integrator.cpp.o: ../test/test_integrator.cpp
 CMakeFiles/main.dir/test/test_integrator.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/longwang/workspace/control_components/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/main.dir/test/test_integrator.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/longwang/workspace/control_components/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/main.dir/test/test_integrator.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/test/test_integrator.cpp.o -MF CMakeFiles/main.dir/test/test_integrator.cpp.o.d -o CMakeFiles/main.dir/test/test_integrator.cpp.o -c /home/longwang/workspace/control_components/test/test_integrator.cpp
 
 CMakeFiles/main.dir/test/test_integrator.cpp.i: cmake_force
@@ -156,7 +184,7 @@ CMakeFiles/main.dir/test/test_integrator.cpp.s: cmake_force
 CMakeFiles/main.dir/test/test_table.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/test/test_table.cpp.o: ../test/test_table.cpp
 CMakeFiles/main.dir/test/test_table.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/longwang/workspace/control_components/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/main.dir/test/test_table.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/longwang/workspace/control_components/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/main.dir/test/test_table.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/test/test_table.cpp.o -MF CMakeFiles/main.dir/test/test_table.cpp.o.d -o CMakeFiles/main.dir/test/test_table.cpp.o -c /home/longwang/workspace/control_components/test/test_table.cpp
 
 CMakeFiles/main.dir/test/test_table.cpp.i: cmake_force
@@ -170,10 +198,12 @@ CMakeFiles/main.dir/test/test_table.cpp.s: cmake_force
 # Object files for target main
 main_OBJECTS = \
 "CMakeFiles/main.dir/src/discrete_integrator.cpp.o" \
+"CMakeFiles/main.dir/src/integrate_functions.cpp.o" \
 "CMakeFiles/main.dir/src/lookup_table.cpp.o" \
 "CMakeFiles/main.dir/src/lookup_table1d.cpp.o" \
 "CMakeFiles/main.dir/src/lookup_table2d.cpp.o" \
 "CMakeFiles/main.dir/test/main.cpp.o" \
+"CMakeFiles/main.dir/test/test.cpp.o" \
 "CMakeFiles/main.dir/test/test_integrator.cpp.o" \
 "CMakeFiles/main.dir/test/test_table.cpp.o"
 
@@ -181,15 +211,17 @@ main_OBJECTS = \
 main_EXTERNAL_OBJECTS =
 
 main: CMakeFiles/main.dir/src/discrete_integrator.cpp.o
+main: CMakeFiles/main.dir/src/integrate_functions.cpp.o
 main: CMakeFiles/main.dir/src/lookup_table.cpp.o
 main: CMakeFiles/main.dir/src/lookup_table1d.cpp.o
 main: CMakeFiles/main.dir/src/lookup_table2d.cpp.o
 main: CMakeFiles/main.dir/test/main.cpp.o
+main: CMakeFiles/main.dir/test/test.cpp.o
 main: CMakeFiles/main.dir/test/test_integrator.cpp.o
 main: CMakeFiles/main.dir/test/test_table.cpp.o
 main: CMakeFiles/main.dir/build.make
 main: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/longwang/workspace/control_components/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/longwang/workspace/control_components/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -153,6 +153,30 @@ src/discrete_integrator.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/discrete_integrator.cpp.s
 .PHONY : src/discrete_integrator.cpp.s
 
+src/integrate_functions.o: src/integrate_functions.cpp.o
+.PHONY : src/integrate_functions.o
+
+# target to build an object file
+src/integrate_functions.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/integrate_functions.cpp.o
+.PHONY : src/integrate_functions.cpp.o
+
+src/integrate_functions.i: src/integrate_functions.cpp.i
+.PHONY : src/integrate_functions.i
+
+# target to preprocess a source file
+src/integrate_functions.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/integrate_functions.cpp.i
+.PHONY : src/integrate_functions.cpp.i
+
+src/integrate_functions.s: src/integrate_functions.cpp.s
+.PHONY : src/integrate_functions.s
+
+# target to generate assembly for a file
+src/integrate_functions.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/integrate_functions.cpp.s
+.PHONY : src/integrate_functions.cpp.s
+
 src/lookup_table.o: src/lookup_table.cpp.o
 .PHONY : src/lookup_table.o
 
@@ -249,6 +273,30 @@ test/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/main.cpp.s
 .PHONY : test/main.cpp.s
 
+test/test.o: test/test.cpp.o
+.PHONY : test/test.o
+
+# target to build an object file
+test/test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/test.cpp.o
+.PHONY : test/test.cpp.o
+
+test/test.i: test/test.cpp.i
+.PHONY : test/test.i
+
+# target to preprocess a source file
+test/test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/test.cpp.i
+.PHONY : test/test.cpp.i
+
+test/test.s: test/test.cpp.s
+.PHONY : test/test.s
+
+# target to generate assembly for a file
+test/test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/test.cpp.s
+.PHONY : test/test.cpp.s
+
 test/test_integrator.o: test/test_integrator.cpp.o
 .PHONY : test/test_integrator.o
 
@@ -309,6 +357,9 @@ help:
 	@echo "... src/discrete_integrator.o"
 	@echo "... src/discrete_integrator.i"
 	@echo "... src/discrete_integrator.s"
+	@echo "... src/integrate_functions.o"
+	@echo "... src/integrate_functions.i"
+	@echo "... src/integrate_functions.s"
 	@echo "... src/lookup_table.o"
 	@echo "... src/lookup_table.i"
 	@echo "... src/lookup_table.s"
@@ -321,6 +372,9 @@ help:
 	@echo "... test/main.o"
 	@echo "... test/main.i"
 	@echo "... test/main.s"
+	@echo "... test/test.o"
+	@echo "... test/test.i"
+	@echo "... test/test.s"
 	@echo "... test/test_integrator.o"
 	@echo "... test/test_integrator.i"
 	@echo "... test/test_integrator.s"

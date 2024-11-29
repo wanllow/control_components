@@ -78,7 +78,8 @@ LookupTable::TableState LookupTable1D::CheckTableState(
   } else if (input_vector1.size() != input_vector2.size()) {
     return TableState::size_not_match;  // y table size must be equal to x table
                                         // size
-  } else if (!isStrictlyIncreasing(input_vector1)) {
+  } else if (!IsStrictlyIncreasing(std::begin(input_vector1),
+                                   std::end(input_vector1))) {
     return TableState::axis_not_increase;  // x table data must be strictly
                                            // increasing
   } else {

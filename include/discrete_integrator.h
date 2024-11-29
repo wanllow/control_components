@@ -9,8 +9,13 @@
 // license text.
 #pragma once
 
+#include <algorithm>
+#include <array>
 #include <cmath>
+#include <numeric>
 #include <vector>
+#include <stdexcept>
+#include "common_utils.h"
 
 namespace wanllow {
 namespace control {
@@ -25,6 +30,7 @@ class DiscreteIntegrator {
  public:
   // Constructors and destructor
   DiscreteIntegrator() = default;
+  // Construct fix-step integrator
   DiscreteIntegrator(
       const std::vector<double>& yvec, const double& dx,
       const double& init_value = 0,
@@ -42,6 +48,7 @@ class DiscreteIntegrator {
       valid_ = false;
     }
   }
+  // Construct variable step integrator
   DiscreteIntegrator(
       const std::vector<double>& yvec, const std::vector<double>& xvec,
       const double& init_value = 0,
@@ -50,7 +57,7 @@ class DiscreteIntegrator {
   }
 
   ~DiscreteIntegrator() = default;
-  // Setting data to integrator
+  // Setting data to integrator, input parameter is checked before assignment
   bool SetIntegrator(
       const std::vector<double>& yvec, const double& dx,
       const double& init_value = 0,
@@ -67,17 +74,8 @@ class DiscreteIntegrator {
     integrate_result_ = reset_value;
     reset_value_ = reset_value;
   }
-    // Integrate functions
-    double Integrate();
-    double IntegrateRectangular(const std::vector<double> &yvec, const double& dx, const double& init_value);
-    double IntegrateRectangular(const std::vector<double> &yvec, const std::vector<double> &xvec, const double& init_value);
-    double IntegrateTrapezoidal(const std::vector<double> &yvec, const double& dx, const double& init_value);
-    double IntegrateTrapezoidal(const std::vector<double> &yvec, const std::vector<double> &xvec, const double& init_value);
-    double IntegrateSimpson(const std::vector<double> &yvec, const double& dx, const double& init_value);
-    double IntegrateSimpson(const std::vector<double> &yvec, const std::vector<double> &xvec, const double& init_value);
-    double IntegrateGauss(const std::vector<double> &yvec, const double& dx, const double& init_value);
-    double IntegrateGauss(const std::vector<double> &yvec, const std::vector<double> &xvec, const double& init_value);
-
+  // Integrate functions
+  double Integrate();
 
  private:
   std::vector<double> yvec_{};  // initial state of y vector is empty
