@@ -3,7 +3,25 @@
 namespace wanllow {
 namespace control {
 static const int points_num = 50;
-void TestIntegrator() { DiscreteIntegrator test_integrator; }
+void TestIntegrator() {
+  const double dx =
+      M_PI_2 / points_num;  // Step size (π/2 divided by number of intervals)
+  std::vector<double> yvec(points_num + 1);  // Array of y-values for sin(x)
+  std::vector<double> xvec(points_num + 1);  // Array of x-values for sin(x)
+
+  // Fill yvec with sin(x) values
+  for (int i = 0; i <= points_num; ++i) {
+    xvec[i] = i * dx;
+    yvec[i] = std::sin(xvec[i]);
+  }
+  DiscreteIntegrator integrator_sine_fixed(yvec, dx, 0,
+                                           IntegrateMethod::simpson);
+  DiscreteIntegrator integrator_sine_variable(yvec, xvec, 0,
+                                              IntegrateMethod::simpson);
+}
+/**************************************************************************/
+/*                                                                        */
+/**************************************************************************/
 void TestSineIntegration() {
   const double dx =
       M_PI_2 / points_num;  // Step size (π/2 divided by number of intervals)
@@ -36,7 +54,9 @@ void TestSineIntegration() {
     std::cerr << "Test Failed: " << e.what() << std::endl;
   }
 }
-
+/**************************************************************************/
+/*                                                                        */
+/**************************************************************************/
 void TestExpIntegration() {
   const double dx =
       1.0 / points_num;  // Step size (1 divided by number of intervals)

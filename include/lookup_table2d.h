@@ -42,9 +42,25 @@ class LookupTable2D : public LookupTable {
   std::size_t cols() const { return table_size_.cols(); }
 
   // Set and clear the table values
+  /**
+   * @brief  initialization using Eigen's datatype
+   *
+   * @param row_axis the row data, must be strict increasing;
+   * @param col_axis the colume data, must be strict increasing;
+   * @param map_matrix matrix with dimensions of  row x col
+   */
   AssignmentState AssignTableData(const Eigen::RowVectorXd &row_axis,
                                   const Eigen::RowVectorXd &col_axis,
                                   const Eigen::MatrixXd &mat_matrix);
+  /**
+   * @brief initialization using std::vector
+   *
+   * @param row_vec the row data, must be strict increasing;
+   * @param col_vec the column data, must be strict increasing;
+   * @param map_vec the matrix data in vector form, length is row x col, stored
+   * with row-major sequence
+   */
+
   AssignmentState AssignTableData(const std::vector<double> &row_vec,
                                   const std::vector<double> &col_vec,
                                   const std::vector<double> &map_vec);

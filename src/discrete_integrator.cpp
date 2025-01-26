@@ -8,6 +8,7 @@
 // License, v2.0. See https://www.mozilla.org/en-US/MPL/2.0/ for the full Eigen
 // license text.
 #include "discrete_integrator.h"
+#include "integrate_functions.h"
 
 namespace wanllow {
 namespace control {

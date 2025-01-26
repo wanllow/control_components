@@ -31,6 +31,10 @@ LookupTable::AssignmentState LookupTable2D::AssignTableData(
 LookupTable::AssignmentState LookupTable2D::AssignTableData(
     const std::vector<double> &row_vec, const std::vector<double> &col_vec,
     const std::vector<double> &map_vec) {
+  // caution: map_vec must be stored in row-major manner,
+  // for example: map_vec = {a, b, c, d} is equal to matrix:
+  //    | a   b |
+  //    | c   d |
   std::size_t rows = ConvertSizeDataType(row_vec.size());
   std::size_t cols = ConvertSizeDataType(col_vec.size());
   if (rows * cols == map_vec.size()) {
