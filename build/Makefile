@@ -297,6 +297,30 @@ test/test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/test.cpp.s
 .PHONY : test/test.cpp.s
 
+test/test_common_utils.o: test/test_common_utils.cpp.o
+.PHONY : test/test_common_utils.o
+
+# target to build an object file
+test/test_common_utils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/test_common_utils.cpp.o
+.PHONY : test/test_common_utils.cpp.o
+
+test/test_common_utils.i: test/test_common_utils.cpp.i
+.PHONY : test/test_common_utils.i
+
+# target to preprocess a source file
+test/test_common_utils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/test_common_utils.cpp.i
+.PHONY : test/test_common_utils.cpp.i
+
+test/test_common_utils.s: test/test_common_utils.cpp.s
+.PHONY : test/test_common_utils.s
+
+# target to generate assembly for a file
+test/test_common_utils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test/test_common_utils.cpp.s
+.PHONY : test/test_common_utils.cpp.s
+
 test/test_integrator.o: test/test_integrator.cpp.o
 .PHONY : test/test_integrator.o
 
@@ -375,6 +399,9 @@ help:
 	@echo "... test/test.o"
 	@echo "... test/test.i"
 	@echo "... test/test.s"
+	@echo "... test/test_common_utils.o"
+	@echo "... test/test_common_utils.i"
+	@echo "... test/test_common_utils.s"
 	@echo "... test/test_integrator.o"
 	@echo "... test/test_integrator.i"
 	@echo "... test/test_integrator.s"
