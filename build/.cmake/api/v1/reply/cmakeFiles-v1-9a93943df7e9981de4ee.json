@@ -128,8 +128,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/home/longwang/workspace/control_components/build",
-		"source" : "/home/longwang/workspace/control_components"
+		"build" : "/home/longwang/workspace/unit_controller/build",
+		"source" : "/home/longwang/workspace/unit_controller"
 	},
 	"version" : 
 	{

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(control_components)
+project(unit_controller)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/third_party_x86.cmake)
 

@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/longwang/workspace/control_components/build"
+			"value" : "/home/longwang/workspace/unit_controller/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -92,22 +92,6 @@
 			],
 			"type" : "INTERNAL",
 			"value" : "1"
-		},
-		{
-			"name" : "CMAKE_COLOR_MAKEFILE",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "Enable/Disable color output during build."
-				}
-			],
-			"type" : "BOOL",
-			"value" : "ON"
 		},
 		{
 			"name" : "CMAKE_COMMAND",
@@ -514,10 +498,6 @@
 			"properties" : 
 			[
 				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
 					"name" : "HELPSTRING",
 					"value" : "No help, variable specified on the command line."
 				}
@@ -547,7 +527,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "Unix Makefiles"
+			"value" : "Ninja"
 		},
 		{
 			"name" : "CMAKE_GENERATOR_INSTANCE",
@@ -595,7 +575,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/longwang/workspace/control_components"
+			"value" : "/home/longwang/workspace/unit_controller"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -647,11 +627,11 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "Path to a program."
+					"value" : "Program used to build from build.ninja files."
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/gmake"
+			"value" : "/usr/bin/ninja"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
@@ -839,7 +819,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "control_components"
+			"value" : "unit_controller"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1122,7 +1102,7 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "control_components_BINARY_DIR",
+			"name" : "unit_controller_BINARY_DIR",
 			"properties" : 
 			[
 				{
@@ -1131,10 +1111,10 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/longwang/workspace/control_components/build"
+			"value" : "/home/longwang/workspace/unit_controller/build"
 		},
 		{
-			"name" : "control_components_IS_TOP_LEVEL",
+			"name" : "unit_controller_IS_TOP_LEVEL",
 			"properties" : 
 			[
 				{
@@ -1146,7 +1126,7 @@
 			"value" : "ON"
 		},
 		{
-			"name" : "control_components_SOURCE_DIR",
+			"name" : "unit_controller_SOURCE_DIR",
 			"properties" : 
 			[
 				{
@@ -1155,7 +1135,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/longwang/workspace/control_components"
+			"value" : "/home/longwang/workspace/unit_controller"
 		}
 	],
 	"kind" : "cache",

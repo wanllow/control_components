@@ -1,4 +1,4 @@
-# Install script for directory: /home/longwang/workspace/control_components
+# Install script for directory: /home/longwang/workspace/unit_controller
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/longwang/workspace/control_components/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/longwang/workspace/unit_controller/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
